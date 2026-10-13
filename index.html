@@ -103,7 +103,7 @@ const NUTRIENTS = [
   {key:'vitC',label:'维生素 C',unit:'mg',target:90,info:'成年男性推荐摄入量'},
   {key:'sodium',label:'钠',unit:'mg',target:2000,info:'WHO 建议成人每日钠摄入量低于约2000 mg',max:true},
 ];
-const DEFAULT_SETTINGS = { baselineKg:75, heightCm:175, age:25, sex:'male', goalMinKg:70, goalMaxKg:75 };
+const DEFAULT_SETTINGS = { baselineKg:72.5, heightCm:181, age:22, sex:'male', goalMinKg:71, goalMaxKg:72 };
 const TODAY_SEED = null;
 
 
@@ -123,11 +123,11 @@ function emptyDay(){return {entries:[],activity:null,weight:null,poop:'unspecifi
 function initState(){
   // Never embed private daily weight or food logs into public-facing app source.
   // The user's private history is in the separately importable *.private.json backup.
-  return {version:1,settings:{...DEFAULT_SETTINGS},days:{},weightHistory:{},createdAt:new Date().toISOString()};
+  return {version:1,settings:{...DEFAULT_SETTINGS},days:{},weightHistory:{},syncEventIds:[],createdAt:new Date().toISOString()};
 }
 function validateState(src){
   if(!src||typeof src!=='object'||!src.days||typeof src.days!=='object')throw Error('文件中没有有效的日期记录');
-  const clean={version:1,createdAt:typeof src.createdAt==='string'?src.createdAt:new Date().toISOString(),settings:{...DEFAULT_SETTINGS},days:{},weightHistory:{}};
+  const clean={version:1,createdAt:typeof src.createdAt==='string'?src.createdAt:new Date().toISOString(),settings:{...DEFAULT_SETTINGS},days:{},weightHistory:{},syncEventIds:Array.isArray(src.syncEventIds)?src.syncEventIds.filter(x=>typeof x==='string'&&/^[a-zA-Z0-9_.-]{6,110}$/.test(x)).slice(-5000):[]};
   for(const k of Object.keys(DEFAULT_SETTINGS)){const v=src.settings?.[k];if(typeof v==='number'&&Number.isFinite(v)&&v>0)clean.settings[k]=v;}
   for(const [date, raw] of Object.entries(src.days)){
     if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!raw||typeof raw!=='object')continue;
@@ -279,9 +279,9 @@ ${cardTitle('晨重曲线','近14天')}<div class="card">${makeChart()}<div clas
 ${cardTitle('最近7天摄入','确认值优先')}<div class="card">${dates.map(d=>{const day=getDay(data,d),k=calorieTotals(day),c=day.entries.length||k.override!==null;return `<div class="row" style="padding:10px 0;border-bottom:1px solid #f1f4f1"><div class="small-meta">${formattedDate(d)} ${d===localDate()?'· 今天':''}</div><div class="small-meta" style="flex:1;height:5px;background:#eef4ef;border-radius:10px;margin:0 12px"><div style="height:100%;width:${Math.max(0,Math.min(100,100*k.display/3500))}%;background:#6baf94;border-radius:10px"></div></div><strong style="font-size:11px">${c?fmt(k.display)+' kcal':'未录入'}</strong></div>`}).join('')}</div>`}
 function renderProfile(){return `<div class="eyebrow">PERSONAL SETTINGS</div><h1 class="hero-title">只属于你的数据。</h1><div class="hero-sub">可修改身体基准，或导入私人历史记录。</div>
 ${cardTitle('身体基准',actionLink('编辑','settings'))}<div class="profile-list"><div class="profile-stat"><span>基础计算体重</span><strong>${fmt(data.settings.baselineKg)} kg</strong></div><div class="profile-stat"><span>真实晨重目标区间</span><strong>${fmt(data.settings.goalMinKg)} – ${fmt(data.settings.goalMaxKg)} kg</strong></div><div class="profile-stat"><span>身高 · 年龄</span><strong>${fmt(data.settings.heightCm)} cm · ${data.settings.age} 岁</strong></div><div class="profile-stat"><span>基础代谢估算（Mifflin-St Jeor）</span><strong>${bmr(data.settings)} kcal / 天</strong></div></div>
-${cardTitle('隐私与数据')}<div class="card"><div class="row"><div><strong style="font-size:12px">保存在当前设备</strong><p class="small-meta" style="max-width:220px;line-height:1.7">目前所有记录存于本机浏览器，未上传第三方服务器。</p></div><span class="badge">离线可用</span></div><div class="divider"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:9px"><button class="secondary-btn" data-action="export">导出 JSON 备份</button><button class="secondary-btn" data-action="import">导入历史记录</button></div><div class="row top-gap">${actionLink('清空所有本机数据','reset')}</div></div>
+${cardTitle('隐私与数据')}<div class="card"><div class="row"><div><strong style="font-size:12px">保存在当前设备</strong><p class="small-meta" style="max-width:220px;line-height:1.7">日常记录默认仅保存在本机；如主动开启云同步，接收到的记录也会存入你的私有 Cloudflare KV。</p></div><span class="badge">离线可用</span></div><div class="divider"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:9px"><button class="secondary-btn" data-action="export">导出 JSON 备份</button><button class="secondary-btn" data-action="import">导入历史记录</button></div><div class="row top-gap">${actionLink('清空所有本机数据','reset')}</div></div>
 ${cardTitle('食品数据库')}<div class="card"><div class="row"><div><strong>内置常见食物 ${FOOD_DB.length} 项</strong><p class="small-meta">可在饮食页面搜索，并将常吃品牌的营养标签存入本机。</p></div><span class="badge">离线可用</span></div><div class="row top-gap"><button class="secondary-btn" data-action="food-import">导入更多食品</button><button class="secondary-btn" data-action="food-export">导出自建食品</button></div></div>
-${cardTitle('关于 ChatGPT 项目同步')}<div class="info-box"><strong>重要：尚未直连 ChatGPT 的「体重管理」项目。</strong><br>当前支持文字速记、食品库统计与 JSON 导入。ChatGPT 对话不会自动流入本应用；要实现双向实时同步，需要额外授权的服务器接口。请勿把个人记录公开上传到 GitHub Pages。</div>
+${cardTitle('ChatGPT → 轻衡同步')}<div class="card"><div class="row"><div><strong>同步收件箱</strong><p class="small-meta">${syncConfig.url?'云端连接已配置':'尚未配置私有同步服务'} · 已应用 ${data.syncEventIds?.length||0} 条消息事件</p></div><span class="badge">${syncConfig.url?'待验证':'手动模式'}</span></div><div class="row top-gap"><button class="secondary-btn" data-action="sync-paste">粘贴聊天同步 JSON</button><button class="secondary-btn" data-action="sync-config">云同步设置</button></div><div class="row top-gap"><button class="secondary-btn" data-action="sync-now">立即从云端拉取</button></div><p class="card-caption" id="syncStatus">${esc(syncStatus)}</p><p class="card-caption">聊天消息不会自动被监听。若要免复制，需要单独授权 ChatGPT 写入接口；本应用可在前台每45秒从私有服务拉取一次。</p></div>
 ${cardTitle('计量与提醒')}<div class="card"><div class="metric-list"><span>蛋白质参考</span><strong>90–116 g / 天</strong><span>膳食纤维参考</span><strong>30 g / 天</strong><span>钾参考</span><strong>3400 mg / 天</strong><span>钠上限参考</span><strong>&lt;2000 mg / 天</strong></div></div><div class="footnote">软件不替代医生与营养师的建议；特别是钾补充剂、肾功能问题和异常水肿，应以专业意见为准。</div>`}
 function render(){const nav=document.querySelectorAll('.tab');nav.forEach(t=>t.classList.toggle('selected',t.dataset.tab===tab));main.innerHTML=({home:renderHome,food:renderFood,trends:renderTrends,profile:renderProfile})[tab]();}
 function header(title,sub=''){return `<h2 class="sheet-title">${title}</h2><div class="sheet-sub">${sub}</div>`}
@@ -376,12 +376,125 @@ function exportUserFoodLibrary(){
  const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=`轻衡-自建食品库-${localDate()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(u),5000);showToast(`已导出 ${items.length} 种自建食品`);
 }
 function reset(){if(confirm('这将清空本机所有饮食、晨重和设置，且无法撤销。确定继续？')){if(confirm('最后确认：你已经导出必要的备份了吗？')){data={...initState(),days:{},weightHistory:{}};save();tab='home';activeDate=localDate();render();showToast('本机数据已清空');}}}
+
+// ===== 轻衡私有同步 v3：事件去重、私有云收件箱、聊天JSON粘贴 =====
+const SYNC_CONFIG_KEY='qingheng-sync-config-v3';
+let syncConfig={url:'',readToken:''};
+try{const cfg=JSON.parse(localStorage.getItem(SYNC_CONFIG_KEY)||'{}');if(typeof cfg.url==='string'&&typeof cfg.readToken==='string'){syncConfig={url:cfg.url,readToken:cfg.readToken};}}catch(e){console.warn('云同步设置读取失败',e)}
+let syncStatus='未连接云端；可以先使用「粘贴聊天同步 JSON」';
+let syncBusy=false;
+function parseSyncEvents(src){
+ let arr=typeof src==='string'?JSON.parse(src.trim().replace(/^```(?:json)?\s*/i,'').replace(/\s*```$/,'')):src;
+ if(arr&&typeof arr==='object'&&!Array.isArray(arr)&&Array.isArray(arr.events))arr=arr.events;
+ if(!Array.isArray(arr))arr=[arr];
+ if(arr.length===0||arr.length>300)throw Error('事件数量超出允许范围');
+ const idTest=/^[a-zA-Z0-9_.-]{6,110}$/;
+ const meals=new Set(['breakfast','lunch','dinner','snack']);
+ const bounded=(v,a,b)=>v===null||(typeof v==='number'&&Number.isFinite(v)&&v>=a&&v<=b);
+ const isDate=d=>typeof d==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(d)&&!Number.isNaN(Date.parse(d))&&new Date(d+'T12:00:00Z').toISOString().slice(0,10)===d;
+ const clean=[];
+ for(const e of arr){
+  if(!e||typeof e!=='object'||!idTest.test(e.id)||!isDate(e.date)||e.type!=='day.patch'||!e.payload||typeof e.payload!=='object'||Array.isArray(e.payload))throw Error('事件缺少合法的 id、date、type 或 payload');
+  const p=e.payload;
+  if(JSON.stringify(p).length>20000)throw Error('事件内容超过限制');
+  if(p.entries!==undefined&&(!Array.isArray(p.entries)||p.entries.length>50))throw Error('食品列表格式有误');
+  if(p.removeEntryIds!==undefined&&(!Array.isArray(p.removeEntryIds)||p.removeEntryIds.length>50||p.removeEntryIds.some(x=>typeof x!=='string'||x.length>130)))throw Error('删除食品ID格式有误');
+  if(p.weight!==undefined&&!bounded(p.weight,20,400))throw Error('体重范围错误');
+  if(p.activity!==undefined&&!bounded(p.activity,0,10000))throw Error('运动热量范围错误');
+  if(p.calorieOverride!==undefined&&!bounded(p.calorieOverride,0,30000))throw Error('全天热量范围错误');
+  if(p.poop!==undefined&&!['before','after','unspecified'].includes(p.poop))throw Error('排便状态错误');
+  if(p.noteAppend!==undefined&&(typeof p.noteAppend!=='string'||p.noteAppend.length>300))throw Error('备注超长');
+  if(p.mealOverrides!==undefined){if(!p.mealOverrides||typeof p.mealOverrides!=='object'||Array.isArray(p.mealOverrides))throw Error('餐食校准有误');for(const [m,k] of Object.entries(p.mealOverrides))if(!meals.has(m)||!bounded(k,0,30000))throw Error('餐食热量校准有误');}
+  for(const f of p.entries||[]){
+   if(!f||typeof f!=='object'||typeof f.id!=='string'||!f.id||f.id.length>130||typeof f.name!=='string'||!f.name.trim()||f.name.length>180||!meals.has(f.meal)||typeof f.amount!=='number'||!Number.isFinite(f.amount)||f.amount<=0||f.amount>10000||typeof f.unit!=='string'||f.unit.length>20)throw Error('食品条目格式不正确');
+   if(f.foodId!==undefined&&(typeof f.foodId!=='string'||f.foodId.length>80))throw Error('foodId 格式错误');
+   if(f.custom)for(const key of FIELDS)if(f[key]!==undefined&&!bounded(f[key],0,100000))throw Error('食品营养素格式错误');
+  }
+  clean.push({id:e.id,date:e.date,type:e.type,payload:p});
+ }
+ return clean;
+}
+function applySyncEvents(raw){
+ const events=parseSyncEvents(raw),seen=new Set(data.syncEventIds||[]),applied=[];
+ for(const e of events){
+  if(seen.has(e.id))continue;
+  const p=e.payload,day=data.days[e.date]??=emptyDay();day.mealOverrides||={};day.entries||=[];
+  if(p.removeEntryIds){const del=new Set(p.removeEntryIds);day.entries=day.entries.filter(f=>!del.has(f.id));}
+  for(const f of p.entries||[]){
+   const match=(f.foodId&&findFood(f.foodId))||FOOD_DB.find(x=>x.name===f.name||x.aliases?.includes(f.name));
+   const custom=!!f.custom||!match;
+   const ent={id:f.id,name:f.name,meal:f.meal,foodId:custom?'custom':match.id,custom,amount:f.amount,unit:f.unit,approx:f.approx!==false,origin:'聊天同步'};
+   if(custom)for(const k of FIELDS)ent[k]=typeof f[k]==='number'?f[k]:null;
+   const index=day.entries.findIndex(x=>x.id===ent.id);
+   if(index>=0)day.entries[index]=ent;else day.entries.push(ent);
+  }
+  for(const key of ['weight','activity','calorieOverride','poop'])if(Object.prototype.hasOwnProperty.call(p,key)){
+    day[key]=p[key];
+    if(key==='weight'){if(p.weight===null)delete data.weightHistory[e.date];else data.weightHistory[e.date]=p.weight;}
+  }
+  for(const [meal,val] of Object.entries(p.mealOverrides||{})){if(val===null)delete day.mealOverrides[meal];else day.mealOverrides[meal]=val;}
+  if(typeof p.noteAppend==='string'&&p.noteAppend.trim()){day.note=(day.note?day.note+'；':'')+p.noteAppend.trim();day.note=day.note.slice(0,400);}
+  seen.add(e.id);applied.push(e);
+ }
+ if(applied.length){data.syncEventIds=[...seen].slice(-5000);save();render();}
+ return {applied:applied.length,duplicate:events.length-applied.length,dates:[...new Set(applied.map(x=>x.date))]};
+}
+function openSyncPaste(){
+ openSheet(header('导入聊天同步消息','从 ChatGPT 中复制 day.patch JSON 粘贴；重复导入相同事件不会重复计算。')+
+ `<label class="field-label">粘贴 JSON（单条、数组或 {"events":[…]}）</label><textarea class="input" id="syncEventText" rows="8" style="min-height:190px" placeholder='{"id":"20261013-dinner-01","date":"2026-10-13","type":"day.patch","payload":{"weight":73.6}}'></textarea><div class="info-box top-gap">此操作只更改 JSON 中明确列出的项目；不会清空旧的饮食历史。相同 id 不会重复导入。</div><div class="sheet-buttons"><button class="secondary-btn" data-close>取消</button><button class="primary-btn" id="applySyncPaste">确认合并</button></div>`);
+ sheet.querySelector('#applySyncPaste').onclick=()=>{try{const res=applySyncEvents(sheet.querySelector('#syncEventText').value);closeSheet();showToast(`合并 ${res.applied} 条，跳过重复 ${res.duplicate} 条`);}catch(e){showToast(e.message||'JSON 无效');}};
+}
+function validWorkerUrl(url){try{const u=new URL(url);return u.protocol==='https:'&&!u.username&&!u.password&&!u.search&&!u.hash&&(u.hostname.endsWith('.workers.dev')||u.hostname.endsWith('.pages.dev')||u.hostname==='localhost'||u.hostname.endsWith('.cloudflare.net'));}catch{return false;}}
+function openSyncConfig(){
+ openSheet(header('私有云同步设置','连接你自己部署的 Cloudflare Worker；仅使用读取密钥，不允许用写入密钥。')+
+ `<label class="field-label">Worker HTTPS 地址</label><input class="input" id="syncUrl" type="url" spellcheck="false" autocomplete="off" value="${esc(syncConfig.url)}" placeholder="https://xxxx.workers.dev"/><label class="field-label top-gap">手机只读密钥（QH_READ_TOKEN）</label><input class="input" id="syncToken" type="password" spellcheck="false" autocomplete="off" value="${esc(syncConfig.readToken)}"/><div class="info-box top-gap">凭据仅保存于本机。公开 GitHub 中不能出现写入密钥、读取密钥或个人健康记录。云服务未部署前可以使用本地粘贴导入。</div><div class="sheet-buttons"><button class="secondary-btn" data-close>取消</button><button class="primary-btn" id="saveSyncConfig">保存连接</button></div><div class="row top-gap"><button class="secondary-btn" id="clearSyncConfig">停用云同步</button></div>`);
+ sheet.querySelector('#saveSyncConfig').onclick=()=>{const url=sheet.querySelector('#syncUrl').value.trim().replace(/\/+$/,''),readToken=sheet.querySelector('#syncToken').value.trim();if(!validWorkerUrl(url)||readToken.length<24){showToast('请输入合法的 Worker 地址和至少24位只读密钥');return;}syncConfig={url,readToken};localStorage.setItem(SYNC_CONFIG_KEY,JSON.stringify(syncConfig));closeSheet();syncStatus='已保存配置，正在验证连接';render();pullSync(true);};
+ sheet.querySelector('#clearSyncConfig').onclick=()=>{if(!confirm('停用云同步？本地饮食和体重记录不会删除。'))return;syncConfig={url:'',readToken:''};localStorage.removeItem(SYNC_CONFIG_KEY);syncStatus='云同步已关闭；本地数据保留';closeSheet();render();showToast('云同步已停用');};
+}
+async function pullSync(manual=false){
+ if(syncBusy)return;if(!syncConfig.url||!syncConfig.readToken){if(manual)showToast('请先在云同步设置中填写地址和只读密钥');return;}
+ if(navigator.onLine===false){if(manual)showToast('当前离线，本地数据仍可使用');return;}
+ syncBusy=true;
+ try{
+  let cursor='',events=[],loops=0;const headers={'Authorization':'Bearer '+syncConfig.readToken};
+  while(loops++<30){
+   const url=syncConfig.url+'/v1/events'+(cursor?'?cursor='+encodeURIComponent(cursor):'');
+   const res=await fetch(url,{method:'GET',headers,cache:'no-store',mode:'cors'});
+   if(!res.ok)throw Error(res.status===401?'只读密钥错误（401）':`云服务返回 HTTP ${res.status}`);
+   const payload=await res.json();if(!payload.ok||!Array.isArray(payload.events))throw Error('云端响应结构无效');
+   events.push(...payload.events);
+   if(!payload.hasMore)break;
+   if(typeof payload.cursor!=='string'||!payload.cursor)throw Error('云端分页游标无效');cursor=payload.cursor;
+  }
+  if(loops>30)throw Error('事件超过3000条，请联系开发者添加时间过滤');
+  // Validate before applying so an incomplete/broken response doesn't silently overwrite data.
+  if(events.length){parseSyncEvents(events);}
+  const result=events.length?applySyncEvents(events):{applied:0,duplicate:0};
+  syncStatus=`上次检查 ${new Date().toLocaleTimeString('zh-CN')} · 新增 ${result.applied} 条，云端共 ${events.length} 条`;
+  if(manual)showToast(result.applied?`已同步 ${result.applied} 条记录`:'同步完成，没有新记录');
+  if(tab==='profile')render();
+ }catch(e){syncStatus='同步失败：'+String(e.message||e).slice(0,130);if(manual)showToast(syncStatus);if(tab==='profile')render();}
+ finally{syncBusy=false;}
+}
+// ChatGPT 可以提供形如 #qh=编码JSON 的本地导入链接。敏感记录在片段中，不发送到 GitHub Pages 服务器。
+function tryImportSharedLink(){
+ const hash=location.hash||'';if(!hash.startsWith('#qh='))return;
+ const fragment=hash.slice(4);history.replaceState(null,'',location.pathname+location.search);
+ if(fragment.length>45000){showToast('链接太长，请用粘贴JSON导入');return;}
+ try{
+  const json=decodeURIComponent(fragment),events=parseSyncEvents(json);
+  const count=events.reduce((n,e)=>n+(e.payload.entries?.length||0),0);
+  if(!confirm(`从 ChatGPT 导入 ${events.length} 条同步事件（包含 ${count} 个食品条目）？\n会合并到现有记录，不会覆盖整份备份。`))return;
+  const result=applySyncEvents(events);showToast(`已接收 ${result.applied} 条，重复 ${result.duplicate} 条`);
+ }catch(e){showToast('同步链接无效：'+String(e.message).slice(0,60));}
+}
+
 const actions={
  'prev-date':()=>changeDate(-1),'next-date':()=>changeDate(1),'go-food':()=>{tab='food';render()},'add-food':a=>openFoodPicker(a.dataset.meal||'lunch'),
  'quick':()=>openQuick(),'custom':()=>openCustom(),'weight':()=>openWeight(),'activity':()=>openActivity(),
  'override':()=>openOverride(),'meal-override':a=>openOverride(a.dataset.meal),
  'delete':a=>{const entry=getDay(data,activeDate).entries.find(e=>e.id===a.dataset.id);if(entry&&confirm(`删除 ${entry.name}？`))mutate(()=>ensureDay().entries=ensureDay().entries.filter(e=>e.id!==a.dataset.id));},
- 'settings':()=>openSettings(),'export':()=>exportBackup(),'import':()=>openImport(),'food-import':()=>openFoodLibraryImport(),'food-export':()=>exportUserFoodLibrary(),'reset':()=>reset()
+ 'settings':()=>openSettings(),'export':()=>exportBackup(),'import':()=>openImport(),'sync-paste':()=>openSyncPaste(),'sync-config':()=>openSyncConfig(),'sync-now':()=>pullSync(true),'food-import':()=>openFoodLibraryImport(),'food-export':()=>exportUserFoodLibrary(),'reset':()=>reset()
 };
 main.addEventListener('click',e=>{const a=e.target.closest('[data-action]');if(a&&actions[a.dataset.action])actions[a.dataset.action](a);});
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{tab=b.dataset.tab;main.scrollTop=0;window.scrollTo(0,0);render()}));
@@ -393,6 +506,9 @@ window.addEventListener('storage',e=>{if(e.key===STORE&&e.newValue){try{data=val
 let seenDate=localDate();document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&seenDate!==localDate()){const prev=seenDate;seenDate=localDate();if(activeDate===prev){activeDate=seenDate;render();}showToast('已切换到新的一天');}});
 
 render();
+setTimeout(()=>{tryImportSharedLink();pullSync(false);},1000);
+setInterval(()=>{if(document.visibilityState==='visible')pullSync(false);},45000);
+window.addEventListener('focus',()=>pullSync(false));
 
 </script>
 <script>
