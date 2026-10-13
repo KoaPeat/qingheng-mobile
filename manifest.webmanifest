@@ -1,0 +1,12 @@
+{
+  "name": "轻衡 · 体重与营养管理",
+  "short_name": "轻衡",
+  "description": "个人离线优先饮食、体重和营养记录",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f8f7",
+  "theme_color": "#f6f8f7",
+  "icons": [{"src":"./icon.png","sizes":"192x192","type":"image/png","purpose":"any"}]
+}

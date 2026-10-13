@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#f6f8f7" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="轻衡" />
+        <style>:root{color-scheme:light;--bg:#f6f8f7;--card:#fff;--ink:#182b2b;--muted:#82918c;--green:#236e61;--green2:#64aa91;--light:#e9f5ef;--line:#ecf0ee;--danger:#b16644;--shadow:0 8px 30px rgba(28,61,50,.045)}
+*{box-sizing:border-box}html,body{margin:0;width:100%;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);-webkit-tap-highlight-color:transparent}button,input,textarea,select{font:inherit}button{cursor:pointer;border:0}button:disabled{opacity:.5;cursor:default}.app-shell{min-height:100dvh;max-width:560px;margin:auto;position:relative;background:var(--bg)}.topbar{height:80px;padding:env(safe-area-inset-top) 22px 0;box-sizing:content-box;display:flex;align-items:center;justify-content:space-between;background:var(--bg);position:sticky;top:0;z-index:6}.brand{font-size:27px;font-weight:790;letter-spacing:-1.2px;display:flex;align-items:center;gap:8px}.brand-icon{font-size:27px;color:#2d806f;font-weight:600}.brand-dot{color:#88b89d}.top-actions{display:flex;gap:12px;align-items:center}.private-pill{font-size:11px;color:#648a78;background:#e9f2ed;padding:7px 11px;border-radius:999px;white-space:nowrap}.private-dot{display:inline-block;width:6px;height:6px;background:#5aa283;border-radius:50%;vertical-align:middle;margin-right:5px}.circle-btn{height:34px;width:34px;border:1px solid #e6ede9;border-radius:50%;color:#698279;background:#fff;font-size:17px}.main-scroll{padding:8px 22px calc(132px + env(safe-area-inset-bottom));min-height:calc(100dvh - 168px)}.tabbar{display:flex;align-items:center;justify-content:space-around;height:84px;padding:10px 8px calc(11px + env(safe-area-inset-bottom));background:#fff;box-shadow:0 -7px 27px rgba(29,59,51,.055);position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:560px;z-index:8}.tab{background:transparent;display:flex;align-items:center;flex-direction:column;gap:3px;font-size:10px;color:#9aa9a3;min-width:52px}.tab.selected{color:var(--green);font-weight:690}.tab-icon svg{height:22px;width:22px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linejoin:round;stroke-linecap:round}.add-fab{margin-top:-42px;border-radius:50%;height:55px;width:55px;font-size:31px;line-height:1;font-weight:300;color:#fff;background:var(--green);box-shadow:0 5px 17px rgba(35,110,97,.28);border:5px solid #fff}.eyebrow{font-size:12px;letter-spacing:2px;font-weight:800;color:#93a39d}.hero-title{margin:9px 0 6px;font-size:29px;letter-spacing:-1.1px;font-weight:800}.hero-sub{font-size:12px;color:var(--muted);margin-bottom:20px;line-height:1.7}.date-nav{display:flex;align-items:center;justify-content:space-between;background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 15px;margin:18px 0}.date-nav strong{font-size:13px}.date-nav small{display:block;color:var(--muted);font-size:10px;margin-top:3px}.date-btn{height:30px;width:30px;background:#f2f6f4;border-radius:9px;color:#789083;font-size:18px}.section-title{font-size:16px;font-weight:800;letter-spacing:-.25px;margin:25px 0 13px;display:flex;justify-content:space-between;align-items:center}.section-title small{font-size:11px;color:var(--muted);font-weight:500}.card{background:var(--card);border-radius:21px;padding:20px;box-shadow:var(--shadow);border:1px solid #f0f3f1}.energy-card{background:linear-gradient(130deg,#194e49 0%,#296f61 65%,#398d77 100%);color:white;border-radius:24px;padding:21px;box-shadow:0 14px 30px rgba(27,95,78,.12);overflow:hidden;position:relative}.energy-card:after{content:"";position:absolute;width:175px;height:175px;right:-75px;top:-115px;border:43px solid rgba(255,255,255,.035);border-radius:50%}.energy-top{display:flex;justify-content:space-between;align-items:center;color:#d9f0e8;font-size:12px;font-weight:600;position:relative;z-index:1}.green-tag{padding:6px 9px;background:rgba(255,255,255,.15);border-radius:50px;font-size:10px}.energy-row{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:12px}.cal-main{font-size:50px;letter-spacing:-2.5px;font-weight:780;line-height:1.2}.cal-unit{color:#c1e2d4;font-size:12px;margin-top:3px}.ring{height:119px;width:119px;flex:none}.ring text{fill:#fff;font-size:13px;font-weight:750}.ring .ring-small{font-size:9px;font-weight:450;fill:#d5ede4}.energy-divider{height:1px;background:rgba(255,255,255,.22);margin:14px 0}.energy-footer{display:flex;justify-content:space-between}.energy-metric{display:flex;flex-direction:column;gap:5px}.energy-metric small{font-size:10px;color:#c3e1d5}.energy-metric strong{font-size:16px;font-weight:700}.energy-metric .positive{color:#bce2c6}.energy-note{font-size:10px;color:#c6e7db;line-height:1.5;margin-top:15px}.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}.mini-card{border-radius:18px;background:#fff;padding:16px;min-height:102px;box-shadow:var(--shadow)}.mini-label{font-size:11px;color:#879a91}.mini-value{font-size:25px;font-weight:790;letter-spacing:-.8px;margin-top:11px}.mini-value span{font-size:11px;color:#9aa9a3;font-weight:500;letter-spacing:0}.mini-foot{margin-top:6px;font-size:10px;color:#93a29a}.mini-click{width:100%;text-align:left}.mini-click:active{transform:scale(.98)}.green-text{color:var(--green)}.nutrient-row{display:grid;grid-template-columns:96px 1fr 66px;align-items:center;gap:7px;margin:15px 0}.nutrient-name{font-size:11px;color:#657a72;font-weight:600}.nutrient-bar{background:#eaf0ed;border-radius:30px;height:8px;overflow:hidden}.nutrient-progress{background:#65ad91;height:100%;border-radius:30px}.nutrient-progress.alert{background:#d59a79}.nutrient-val{text-align:right;font-size:10px;color:#5b7569}.card-caption{color:#9cac9f;font-size:10px;margin-top:16px;line-height:1.7}.tip-card{border-radius:17px;padding:17px 16px;display:flex;gap:12px;align-items:flex-start;background:#fff;border:1px solid #edf1ee;margin-bottom:9px}.tip-card.warning{background:#fff8f1;border-color:#f8e5d5}.tip-glyph{width:32px;height:32px;flex:none;border-radius:12px;background:#e4f2eb;color:#317e68;display:grid;place-items:center;font-size:14px;font-weight:800}.warning .tip-glyph{background:#f9e7d5;color:#b7764b}.tip-body{min-width:0;flex:1}.tip-body strong{font-size:12px}.tip-body p{font-size:11px;line-height:1.7;color:#7a8a82;margin:5px 0 8px}.tip-action{font-size:10px;font-weight:700;color:#287a62}.meal-card{background:#fff;border-radius:18px;margin-bottom:10px;padding:16px}.meal-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:5px}.meal-name{font-size:13px;font-weight:780}.meal-name .meal-symbol{color:#5e9e86;margin-right:6px}.meal-total{font-size:12px;color:#688477;font-weight:720}.meal-item{display:flex;align-items:center;justify-content:space-between;border-top:1px solid #f1f3f1;padding:12px 0 3px;margin-top:9px;gap:10px}.meal-item-title{font-size:11px;color:#50665d;line-height:1.6}.meal-item-sub{font-size:10px;color:#9aaa9f;margin-top:1px}.item-kcal{white-space:nowrap;font-size:12px;font-weight:700}.ghost-delete{background:transparent;color:#b6c1bb;padding:8px;font-size:13px}.link{color:#317f69;background:transparent;padding:4px;font-size:11px;font-weight:700}.empty-text{text-align:center;font-size:12px;line-height:1.8;color:#a3b1a8;padding:25px 12px}.plain-btn{background:#e6f2eb;color:#286e59;font-weight:720;border-radius:13px;padding:12px 15px;font-size:12px}.primary-btn{background:var(--green);color:#fff;border-radius:14px;padding:14px 18px;font-size:13px;font-weight:750}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.row>*{min-width:0}.secondary-btn{background:#f0f5f2;border-radius:12px;color:#487060;padding:12px;font-weight:700;font-size:12px}.small-meta{font-size:11px;color:#8fa39a}.weight-chart{width:100%;height:164px;display:block}.chart-label{font-size:9px;fill:#96a79e}.chart-circle{fill:#317865;stroke:#fff;stroke-width:2}.hscroll{display:flex;gap:8px;overflow:auto;padding:1px 0 8px}.pill{background:#fff;color:#799086;border:1px solid #e4ede7;border-radius:30px;padding:8px 13px;font-size:11px;white-space:nowrap}.pill.active{background:#276d5c;color:#fff;border-color:#276d5c}.small-green{font-size:11px;color:#318569;font-weight:700}.metric-list{display:grid;grid-template-columns:1fr auto;gap:14px;font-size:12px;color:#65796e}.metric-list strong{color:#244b3e}.divider{height:1px;background:#edf1ee;margin:18px 0}.profile-list{display:grid;gap:11px}.profile-stat{background:#fff;border:1px solid #edf0ee;padding:16px;border-radius:15px;display:flex;justify-content:space-between;align-items:center}.profile-stat span{font-size:12px;color:#6c8177}.profile-stat strong{font-size:13px}.info-box{background:#e7f3ec;border-radius:17px;padding:16px;color:#537a68;font-size:11px;line-height:1.8}.warning-box{background:#fff4e8;border:1px solid #f5e4cc;color:#a77b4f}.overlay{position:fixed;inset:0;background:rgba(17,41,35,.42);z-index:20;display:flex;align-items:flex-end;justify-content:center}.hidden{display:none!important}.sheet{background:#fff;max-width:560px;width:100%;border-radius:25px 25px 0 0;padding:10px 22px max(calc(24px + env(safe-area-inset-bottom)),32px);max-height:90dvh;overflow:auto;overscroll-behavior:contain;box-shadow:0 -10px 50px rgba(15,42,33,.12)}.sheet-handle{width:36px;height:4px;border-radius:10px;background:#dce5df;margin:2px auto 19px}.sheet-title{font-size:21px;font-weight:800;letter-spacing:-.7px;margin:4px 0 9px}.sheet-sub{font-size:11px;color:#90a097;line-height:1.7;margin-bottom:18px}.field-label{font-size:11px;font-weight:750;color:#667b6f;display:block;margin:15px 0 7px}.input{display:block;width:100%;border:1px solid #e6ece8;background:#fafcfb;border-radius:13px;padding:13px;outline:none;color:var(--ink);font-size:13px}.input:focus{border-color:#6db099;box-shadow:0 0 0 2px #ddefe6}textarea.input{resize:vertical;min-height:92px}.input-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.sheet-buttons{display:flex;gap:9px;margin-top:20px}.sheet-buttons>*{flex:1}.food-result{padding:12px 7px;border-bottom:1px solid #f0f3f1;display:flex;justify-content:space-between;text-align:left;width:100%;background:#fff;align-items:center}.food-result strong{font-size:12px;color:#305046}.food-result small{font-size:10px;display:block;color:#98a79e;margin-top:4px}.food-result b{font-size:12px;color:#418874}.qty-card{padding:15px;border:1px solid #e9eee9;border-radius:16px;background:#fafcfb;margin:14px 0}.qty-top{display:flex;justify-content:space-between;align-items:center}.qty-cal{font-size:23px;font-weight:800;color:#307c66}.toast{position:fixed;bottom:114px;left:50%;transform:translateX(-50%);background:#223e32;color:#fff;padding:12px 18px;border-radius:10px;z-index:30;white-space:nowrap;font-size:11px;box-shadow:0 5px 25px #153a3129}.badge{display:inline-block;font-size:9px;padding:4px 7px;border-radius:5px;background:#f2f4f0;color:#91a096}.badge.warn{background:#fff2e1;color:#a57f53}.muted{color:var(--muted)}.top-gap{margin-top:20px}.footnote{font-size:10px;color:#97a79f;line-height:1.8;margin:16px 0}.chart-grid{stroke:#edf2ef;stroke-width:1}.chart-line{fill:none;stroke:#347e68;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.no-data{font-size:12px;fill:#acb9b2}.relative{position:relative}.status-dot{display:inline-block;height:7px;width:7px;background:#71af91;border-radius:50%;margin-right:6px}.tabs-inline{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:5px;background:#f0f5f2;border-radius:12px;margin-top:13px}.tabs-inline button{background:transparent;border-radius:10px;color:#6c8477;padding:11px 6px;font-size:11px}.tabs-inline .selected{background:#fff;box-shadow:0 2px 7px #1a4a3610;color:#256d59;font-weight:800}.checkbox-label{display:flex;align-items:center;gap:8px;font-size:11px;color:#708379}.checkbox-label input{accent-color:#347e68}
+@media(min-width:620px){body{background:#eaf0ec}.app-shell{box-shadow:0 0 50px #1b3e3017}.overlay{align-items:center}.sheet{border-radius:25px;max-height:88dvh}}
+</style>
+  <link rel="manifest" href="./manifest.webmanifest" />
+  <link rel="icon" type="image/png" href="./icon.png" />
+  <link rel="apple-touch-icon" href="./icon.png" />
+  <title>轻衡 · 体重与营养</title>
+</head><body>
+  <div id="app" class="app-shell">
+    <header class="topbar"><div class="brand"><span class="brand-icon">◒</span><span>轻衡<span class="brand-dot">.</span></span></div><div class="top-actions"><span class="private-pill"><span class="private-dot"></span>私人记录</span><button id="menuButton" class="circle-btn" aria-label="打开设置">⚙</button></div></header>
+    <main id="main" class="main-scroll"></main>
+    <nav class="tabbar" aria-label="主导航">
+      <button class="tab selected" data-tab="home"><span class="tab-icon"><svg viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg></span><span>总览</span></button>
+      <button class="tab" data-tab="food"><span class="tab-icon"><svg viewBox="0 0 24 24"><path d="M4 5h16M4 12h16M4 19h16M6 3v4M18 10v4M9 17v4"/></svg></span><span>饮食</span></button>
+      <button class="add-fab" id="addButton" aria-label="添加食物">+</button>
+      <button class="tab" data-tab="trends"><span class="tab-icon"><svg viewBox="0 0 24 24"><path d="m3 18 6-7 4 3 8-9M3 21h18"/></svg></span><span>趋势</span></button>
+      <button class="tab" data-tab="profile"><span class="tab-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-5 3-7 8-7s8 2 8 7"/></svg></span><span>我的</span></button>
+    </nav>
+  </div>
+  <div id="overlay" class="overlay hidden" aria-live="polite"><div class="sheet" id="sheet"></div></div>
+  <div id="toast" class="toast hidden" role="status"></div>
+  <script type="module">
+/**
+ * 体重管理 · food library
+ * Nutrition is expressed per base unit (100 g/ml, or one whole package).
+ * `null` means unknown, NEVER zero. Numbers marked approximate are for orientation
+ * only and should be replaced by actual packaging labels.
+ */
+const FOOD_DB = [
+  {id:'oats', name:'燕麦',aliases:['麦片','纯燕麦'],category:'主食',base:100,unit:'g',kcal:380,protein:13.5,carbs:67.7,fat:6.5,fiber:10.1,sodium:2,potassium:358,calcium:54,vitC:0},
+  {id:'jiaochun',name:'简醇酸奶',aliases:['简醇'],category:'乳品',base:150,unit:'g',kcal:90,protein:null,carbs:null,fat:null,fiber:null,sodium:null,potassium:null,calcium:null,vitC:null,approx:true},
+  {id:'jianchun',name:'减醇酸奶',aliases:['减醇','减醇一包'],category:'乳品',base:1,unit:'袋',kcal:90,protein:null,carbs:null,fat:null,fiber:null,sodium:null,potassium:null,calcium:null,vitC:null,approx:true},
+  {id:'egg_whitewater',name:'白水蛋',aliases:['包装白水蛋'],category:'蛋白质',base:1,unit:'个',kcal:45,protein:3.9,carbs:0.2,fat:3.1,fiber:0,sodium:45,potassium:40,calcium:17,vitC:0,approx:true},
+  {id:'tomato',name:'大番茄',aliases:['番茄','西红柿'],category:'蔬果',base:100,unit:'g',kcal:20.6,protein:0.9,carbs:3.9,fat:0.2,fiber:1.2,sodium:5,potassium:163,calcium:10,vitC:19},
+  {id:'small_tomato',name:'小番茄',aliases:['圣女果'],category:'蔬果',base:100,unit:'g',kcal:24,protein:1.0,carbs:5.2,fat:0.2,fiber:1.4,sodium:5,potassium:237,calcium:11,vitC:20,approx:true},
+  {id:'braised_beef',name:'卤牛肉',aliases:['卤牛腱','牛腱子','卤牛腱子肉'],category:'蛋白质',base:100,unit:'g',kcal:160,protein:25,carbs:1,fat:6,fiber:0,sodium:null,potassium:null,calcium:null,vitC:0,approx:true},
+  {id:'bread',name:'高蛋白全麦面包',aliases:['面包','吐司','全麦吐司','一袋面包'],category:'主食',base:1,unit:'袋',kcal:129,protein:null,carbs:null,fat:null,fiber:null,sodium:null,potassium:null,calcium:null,vitC:null,approx:true},
+  {id:'beef_patty',name:'牛肉饼',aliases:['牛肉饼包'],category:'蛋白质',base:50,unit:'g',kcal:49.7,protein:7.65,carbs:3.5,fat:0.5,fiber:null,sodium:253.5,potassium:null,calcium:null,vitC:null},
+  {id:'meat_egg',name:'肉包蛋',aliases:[],category:'蛋白质',base:1,unit:'个',kcal:77.4,protein:null,carbs:null,fat:null,fiber:null,sodium:null,potassium:null,calcium:null,vitC:null},
+  {id:'goat_milk',name:'Oli Natural羊奶粉',aliases:['羊奶粉','全脂羊奶粉'],category:'乳品',base:32.5,unit:'g',kcal:168,protein:8.75,carbs:null,fat:null,fiber:0,sodium:null,potassium:null,calcium:null,vitC:null},
+  {id:'soy_milk',name:'沃集鲜醇豆浆',aliases:['醇豆浆','豆浆'],category:'乳品',base:100,unit:'ml',kcal:60.2,protein:5.3,carbs:null,fat:null,fiber:null,sodium:null,potassium:null,calcium:null,vitC:null},
+  {id:'tomato_juice',name:'番茄汁',aliases:['沃集鲜番茄汁'],category:'饮品',base:100,unit:'ml',kcal:34.7,protein:null,carbs:null,fat:null,fiber:null,sodium:null,potassium:null,calcium:null,vitC:null},
+  {id:'green_juice',name:'绿色果蔬汁',aliases:['果蔬汁'],category:'饮品',base:100,unit:'ml',kcal:27.7,protein:null,carbs:null,fat:null,fiber:null,sodium:null,potassium:null,calcium:null,vitC:null},
+  {id:'sweet_potato',name:'蒸红薯',aliases:['熟红薯','红薯','地瓜'],category:'主食',base:100,unit:'g',kcal:87,protein:1.6,carbs:20, fat:0.1,fiber:2.6,sodium:35,potassium:337,calcium:30,vitC:8,approx:true},
+  {id:'potato',name:'土豆',aliases:['熟土豆','蒸土豆'],category:'主食',base:100,unit:'g',kcal:77.7,protein:2,carbs:17,fat:0.1,fiber:2.2,sodium:6,potassium:379,calcium:12,vitC:9,approx:true},
+  {id:'apple',name:'苹果',aliases:[],category:'蔬果',base:100,unit:'g',kcal:52,protein:0.3,carbs:13.8,fat:0.2,fiber:2.4,sodium:1,potassium:107,calcium:6,vitC:4.6},
+  {id:'jerky',name:'鸡胸肉干',aliases:['鸡肉干','鸡胸肉罐'],category:'蛋白质',base:100,unit:'g',kcal:332,protein:57.9,carbs:12.6,fat:4.9,fiber:null,sodium:2040,potassium:null,calcium:null,vitC:null},
+  {id:'pork',name:'卤猪腱子肉',aliases:['卤猪腱'],category:'蛋白质',base:100,unit:'g',kcal:150,protein:23,carbs:1,fat:6,fiber:0,sodium:null,potassium:null,calcium:null,vitC:0,approx:true},
+  {id:'kiwi',name:'猕猴桃',aliases:['奇异果'],category:'蔬果',base:85,unit:'g',kcal:52,protein:0.9,carbs:12.5,fat:0.4,fiber:2.5,sodium:3,potassium:264,calcium:29,vitC:78,approx:true},
+  {id:'broccoli',name:'西兰花',aliases:[],category:'蔬果',base:100,unit:'g',kcal:34,protein:2.8,carbs:7,fat:0.4,fiber:2.6,sodium:33,potassium:316,calcium:47,vitC:89},
+  {id:'spinach',name:'熟菠菜',aliases:['菠菜'],category:'蔬果',base:100,unit:'g',kcal:23,protein:3,carbs:3.8,fat:0.3,fiber:2.4,sodium:70,potassium:466,calcium:136,vitC:10,approx:true},
+  {id:'milk',name:'纯牛奶',aliases:['牛奶'],category:'乳品',base:250,unit:'ml',kcal:150,protein:8,carbs:12,fat:8,fiber:0,sodium:105,potassium:350,calcium:300,vitC:0,approx:true},
+  {id:'egg',name:'鸡蛋',aliases:['水煮蛋','茶叶蛋'],category:'蛋白质',base:1,unit:'个',kcal:75,protein:6.5,carbs:0.5,fat:5.2,fiber:0,sodium:70,potassium:65,calcium:28,vitC:0,approx:true},
+  {id:'chicken_breast',name:'鸡胸肉（熟）',aliases:['鸡胸肉'],category:'蛋白质',base:100,unit:'g',kcal:165,protein:31,carbs:0,fat:3.6,fiber:0,sodium:74,potassium:256,calcium:15,vitC:0,approx:true},
+];
+
+const MEALS = [{id:'breakfast',label:'早餐',icon:'☀'},{id:'lunch',label:'午餐',icon:'◒'},{id:'snack',label:'加餐',icon:'✦'},{id:'dinner',label:'晚餐',icon:'☾'}];
+const NUTRIENTS = [
+  {key:'protein',label:'蛋白质',unit:'g',target:90,upper:116,info:'活动人群可按体重约1.2–1.6g/kg个体化调整'},
+  {key:'fiber',label:'膳食纤维',unit:'g',target:30,info:'每日约30 g，来自全谷、蔬菜、水果及豆类'},
+  {key:'calcium',label:'钙',unit:'mg',target:1000,info:'19–50岁成年人参考需求'},
+  {key:'potassium',label:'钾',unit:'mg',target:3400,info:'成年男性足量摄入参考值；优先食物来源'},
+  {key:'vitC',label:'维生素 C',unit:'mg',target:90,info:'成年男性推荐摄入量'},
+  {key:'sodium',label:'钠',unit:'mg',target:2000,info:'WHO 建议成人每日钠摄入量低于约2000 mg',max:true},
+];
+const DEFAULT_SETTINGS = { baselineKg:75, heightCm:175, age:25, sex:'male', goalMinKg:70, goalMaxKg:75 };
+const TODAY_SEED = null;
+
+
+const FIELDS = ['kcal','protein','carbs','fat','fiber','sodium','potassium','calcium','vitC'];
+function localDate(d=new Date()) { const y=d.getFullYear(), m=String(d.getMonth()+1).padStart(2,'0'), day=String(d.getDate()).padStart(2,'0');return `${y}-${m}-${day}`; }
+function uuid(){return (globalThis.crypto?.randomUUID?.() ?? `id-${Date.now()}-${Math.random().toString(36).slice(2)}`);}
+function findFood(id){return FOOD_DB.find(x=>x.id===id);}
+function calcNutrition(entry){
+  if(entry.custom){const out={};for(const k of FIELDS)out[k]=Number.isFinite(entry[k])?entry[k]:null;return out;}
+  const food=findFood(entry.foodId);if(!food)return Object.fromEntries(FIELDS.map(k=>[k,null]));
+  const factor=Number(entry.amount)/food.base;
+  if(!Number.isFinite(factor)||factor<=0)return Object.fromEntries(FIELDS.map(k=>[k,null]));
+  const out={};for(const k of FIELDS)out[k]=(typeof food[k]==='number') ? +((food[k]*factor).toFixed(2)) : null;
+  return out;
+}
+function emptyDay(){return {entries:[],activity:null,weight:null,poop:'unspecified',note:'',calorieOverride:null,mealOverrides:{}};}
+function initState(){
+  // Never embed private daily weight or food logs into public-facing app source.
+  // The user's private history is in the separately importable *.private.json backup.
+  return {version:1,settings:{...DEFAULT_SETTINGS},days:{},weightHistory:{},createdAt:new Date().toISOString()};
+}
+function validateState(src){
+  if(!src||typeof src!=='object'||!src.days||typeof src.days!=='object')throw Error('文件中没有有效的日期记录');
+  const clean={version:1,createdAt:typeof src.createdAt==='string'?src.createdAt:new Date().toISOString(),settings:{...DEFAULT_SETTINGS},days:{},weightHistory:{}};
+  for(const k of Object.keys(DEFAULT_SETTINGS)){const v=src.settings?.[k];if(typeof v==='number'&&Number.isFinite(v)&&v>0)clean.settings[k]=v;}
+  for(const [date, raw] of Object.entries(src.days)){
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!raw||typeof raw!=='object')continue;
+    const day=emptyDay();day.weight=Number.isFinite(raw.weight)?raw.weight:null;
+    day.activity=Number.isFinite(raw.activity)?Math.max(0,raw.activity):null;
+    day.calorieOverride=Number.isFinite(raw.calorieOverride)?Math.max(0,raw.calorieOverride):null;
+    day.poop=['before','after','unspecified'].includes(raw.poop)?raw.poop:'unspecified';
+    day.note=typeof raw.note==='string'?raw.note.slice(0,400):'';
+    if(raw.mealOverrides&&typeof raw.mealOverrides==='object')for(const key of MEALS.map(m=>m.id)) if(Number.isFinite(raw.mealOverrides[key])&&raw.mealOverrides[key]>=0)day.mealOverrides[key]=raw.mealOverrides[key];
+    if(Array.isArray(raw.entries)) day.entries=raw.entries.slice(0,300).filter(e=>e&&typeof e==='object'&&MEALS.some(m=>m.id===e.meal)&&typeof e.name==='string'&&e.name.length<200 && (e.custom||findFood(e.foodId))).map(e=>{
+      const out={id:typeof e.id==='string'?e.id:uuid(),name:e.name,meal:e.meal,foodId:e.foodId,amount:Number.isFinite(e.amount)?e.amount:1,unit:typeof e.unit==='string'?e.unit:'g',custom:!!e.custom,origin:typeof e.origin==='string'?e.origin:'导入',approx:!!e.approx};
+      if(out.custom)for(const f of FIELDS)out[f]=Number.isFinite(e[f])?Math.max(0,e[f]):null;
+      return out;
+    });
+    clean.days[date]=day;
+  }
+  if(src.weightHistory&&typeof src.weightHistory==='object')for(const [d,w] of Object.entries(src.weightHistory))if(/^\d{4}-\d{2}-\d{2}$/.test(d)&&typeof w==='number'&&w>20&&w<400)clean.weightHistory[d]=w;
+  return clean;
+}
+function getDay(state,date){return state.days[date]??emptyDay();}
+function sums(entries){
+  const result={};for(const k of FIELDS)result[k]=0;
+  const missing={};for(const k of FIELDS)missing[k]=0;
+  for(const e of entries){const v=calcNutrition(e);for(const k of FIELDS){if(v[k]===null)missing[k]++;else result[k]+=v[k];}}
+  for(const k of FIELDS) result[k]=+(result[k].toFixed(1));
+  return {result,missing,entryCount:entries.length};
+}
+function calorieTotals(day){
+  const byMeal={};for(const m of MEALS){const entries=day.entries.filter(e=>e.meal===m.id); const raw=sums(entries).result.kcal;const override=day.mealOverrides?.[m.id];byMeal[m.id]={raw,display:Number.isFinite(override)?override:raw,override:Number.isFinite(override)?override:null};}
+  const estimated=Object.values(byMeal).reduce((a,m)=>a+m.display,0);
+  const corrected=Number.isFinite(day.calorieOverride)?day.calorieOverride:estimated;
+  return {byMeal,estimated:+estimated.toFixed(1),display:+corrected.toFixed(1),override:Number.isFinite(day.calorieOverride)?day.calorieOverride:null};
+}
+function bmr(settings){const weight=settings.baselineKg,height=settings.heightCm,age=settings.age;return Math.round(10*weight+6.25*height-5*age+(settings.sex==='female'?-161:5));}
+function expend(day,settings){const activityKnown=Number.isFinite(day.activity),activity=activityKnown?day.activity:null,tef=Math.round(calorieTotals(day).display*0.08);return {bmr:bmr(settings),activity,activityKnown,tef,total:bmr(settings)+(activity??0)+tef};}
+function nutritionAdvice(day,settings=DEFAULT_SETTINGS){
+  const {result,missing,entryCount}=sums(day.entries);const advice=[];
+  if(!entryCount)return [{key:'start',severity:'normal',title:'先记下今天的饮食',message:'录入食品和分量后，软件会按已知营养成分自动更新建议。',action:'记录第一餐'}];
+  const scarce=(key)=>missing[key]/entryCount > .33;
+  if(scarce('protein'))advice.push({key:'quality',severity:'normal',title:'部分食品缺少营养标签',message:'已统计的营养数值只是下限，建议补充包装营养信息，以免误判缺乏。',action:'完善营养数据'});
+  const energyGap=expend(day,settings).total-calorieTotals(day).display;
+  if((day.activity||0)>150&&energyGap>600)advice.push({key:'energy',severity:'normal',title:'运动日要留意能量恢复',message:`按已录入项目估算，当前缺口约 ${fmt(energyGap)} kcal；如果今天已基本吃完，建议补充主食、优质蛋白和适量脂肪，不必刻意追求超大缺口。`,action:'参考：土豆、燕麦、鸡胸肉或豆制品'});
+  if(result.protein<90)advice.push({key:'protein',severity:'normal',title:`蛋白质还差约 ${Math.ceil(90-result.protein)} g`,message:scarce('protein')?'存在未记录的蛋白质，请先核对标签；若确实不足，可选鸡胸肉、豆浆、鸡蛋等。':'优先选择原味鸡胸肉、豆制品或鸡蛋，保持充足的恢复营养。',action:'参考：100g熟鸡胸肉约31g蛋白质'});
+  if(result.fiber<30)advice.push({key:'fiber',severity:'normal',title:'补一些膳食纤维',message:`已知约 ${fmt(result.fiber)} g / 30 g。可考虑深色蔬菜250 g＋一份水果或豆类。${scarce('fiber')?'（部分餐食缺少纤维数据）':''}`,action:'西兰花、菠菜、猕猴桃'});
+  if(result.calcium<1000)advice.push({key:'calcium',severity:'normal',title:'关注钙摄入',message:`已知约 ${fmt(result.calcium)} mg / 1000 mg。牛奶250 ml约可补钙300 mg，或选择有钙标签的乳品/强化豆制品。${scarce('calcium')?'部分食品钙含量尚未录入。':''}`,action:'可选纯牛奶/低糖酸奶'});
+  if(result.vitC<90)advice.push({key:'vitC',severity:'normal',title:'可补充维生素 C',message:`已知约 ${fmt(result.vitC)} mg / 90 mg；一份猕猴桃或彩椒、绿叶菜可以帮助达标。${scarce('vitC')?'仍有食品维C数据未知。':''}`,action:'参考：猕猴桃85g约78mg'});
+  if(result.potassium<3400)advice.push({key:'potassium',severity:'normal',title:'优先从食物获得钾',message:`已知约 ${fmt(result.potassium)} mg / 3400 mg。可从土豆、蔬菜、豆类和水果补充；不要根据此估算自行加量服用钾片。${scarce('potassium')?'部分记录不含钾数据。':''}`,action:'土豆、菠菜、豆制品'});
+  if(result.sodium>=2000)advice.unshift({key:'sodium',severity:'warn',title:'已知钠摄入达到较高水平',message:`已有标签可计算出 ${fmt(result.sodium)} mg 钠，达到或超过2000 mg；今天其余餐食尽量清淡，尤其注意卤味和加工肉类。`,action:'少选卤味、汤底与高盐酱料'});
+  else if(scarce('sodium'))advice.push({key:'sodium-data',severity:'normal',title:'留意卤味中的隐形钠',message:'部分卤制食品没有精确钠标签，当前钠统计可能明显低估。',action:'以实际营养标签为准'});
+  return advice.slice(0,6);
+}
+function fmt(num){return Number.isFinite(num)?Number(num.toFixed(1)).toLocaleString('zh-CN'):'—';}
+function daysBack(date,count){const ret=[];const d=new Date(`${date}T12:00:00`);for(let i=count-1;i>=0;i--){const x=new Date(d);x.setDate(d.getDate()-i);ret.push(localDate(x));}return ret;}
+function quickParse(text, meal='snack'){
+  const items=[];const unknown=[];let recognizedOverride=null;
+  const overrideMatch=text.match(/(?:全天|总(?:热量|摄入)|今日)(?:的?(?:热量|摄入))?\s*(?:按|算|定为|记为|改成|改为)?\s*(\d{2,5})\s*(?:千卡|大卡|kcal|卡)/i);
+  if(overrideMatch)recognizedOverride=Number(overrideMatch[1]);
+  let txt=text.replace(/\s+/g,'').replace(/[，、＋+和跟与]/g,';').replace(/\n/g,';');
+  // Expand special non-canonical phrases and chinese numerals.
+  const zh={'零':0,'一':1,'二':2,'两':2,'三':3,'四':4,'五':5,'六':6,'七':7,'八':8,'九':9,'十':10};
+  txt=txt.replace(/([一二两三四五六七八九十])(?=个|颗|袋|包|根|罐|瓶)/g,(_,v)=>String(zh[v]));
+  const fragments=txt.split(/[;；。:：]/).map(s=>s.trim()).filter(Boolean);
+  for(const frag of fragments){
+    if(/全天|总热量|总摄入/.test(frag)&&/\d+/.test(frag))continue;
+    let m=meal;
+    if(/午餐|中午/.test(frag))m='lunch';else if(/晚餐|晚上|睡前/.test(frag))m='dinner';else if(/早餐|早上/.test(frag))m='breakfast';else if(/加餐|下午/.test(frag))m='snack';
+    const stripped=frag.replace(/^(?:早餐|午餐|晚餐|加餐|中午|下午|晚上|睡前|早上)(?:是|吃|加|了|有|为)?/,'');
+    const indexed=FOOD_DB.flatMap(f=>[f.name,...f.aliases].filter(Boolean).map(alias=>({f,alias}))).sort((a,b)=>b.alias.length-a.alias.length);
+    const match=indexed.find(x=>stripped.includes(x.alias));
+    if(!stripped)continue;
+    if(!match){unknown.push(frag);continue;}
+    const {f,alias}=match;
+    const before=stripped.slice(0,stripped.indexOf(alias)),after=stripped.slice(stripped.indexOf(alias)+alias.length);
+    const rx=/(\d+(?:\.\d+)?)\s*(克|g|毫升|ml|个|颗|袋|包|瓶|根|罐)/i;
+    const grams=Array.from(stripped.matchAll(/(\d+(?:\.\d+)?)\s*(g|克|ml|毫升)/gi));
+    // When count and weight coexist ("三个大番茄750g"), prefer gram weight.
+    let picked=grams.length?grams[grams.length-1]:after.match(rx)||before.match(rx)||stripped.match(rx);
+    if(!picked && (f.unit==='g'||f.unit==='ml')){unknown.push(`${frag}（请写明重量或体积）`);continue;}
+    let amount=picked?Number(picked[1]):1;
+    const rawUnit=picked?picked[2]:(f.unit);
+    const unit=/克|g/i.test(rawUnit)?'g':/毫升|ml/i.test(rawUnit)?'ml':/个|颗/.test(rawUnit)?'个':/袋|包/.test(rawUnit)?'袋':/瓶/.test(rawUnit)?'瓶':/根/.test(rawUnit)?'根':/罐/.test(rawUnit)?'罐':f.unit;
+    if(unit!==f.unit){
+      if(f.unit==='g'&&unit!=='g'){
+        // Only convert to grams for foods where one-piece weight was recorded.
+        const pieceGram={egg_whitewater:30,kiwi:85,meat_egg:60,egg:55,beef_patty:50};
+        if(!pieceGram[f.id]){unknown.push(`${frag}（请用克数）`);continue;}
+        amount*=pieceGram[f.id];
+      }else if(f.unit==='ml'&&unit==='瓶'&&f.id==='tomato_juice')amount*=220;
+      else if(f.unit==='ml'&&unit==='瓶'&&f.id==='green_juice')amount*=220;
+      else if(f.unit!=='g'&&f.unit!=='ml'&&unit!==f.unit){unknown.push(`${frag}（单位不匹配）`);continue;}
+    }
+    if(!Number.isFinite(amount)||amount<=0||amount>10000){unknown.push(frag);continue;}
+    items.push({id:uuid(),foodId:f.id,name:f.name,meal:m,amount,unit:f.unit,approx:!!f.approx,origin:'文字速记'});
+  }
+  return {items,unknown,recognizedOverride};
+}
+
+const STORE='qingheng-local-v1';
+let data;
+try {const raw=localStorage.getItem(STORE); data=raw?validateState(JSON.parse(raw)):initState();}
+catch (err) {console.warn('Data validation failed',err);data=initState();}
+let activeDate=localDate(); let tab='home';let filter='全部';
+const main=document.querySelector('#main'), overlay=document.querySelector('#overlay'), sheet=document.querySelector('#sheet'),toastNode=document.querySelector('#toast');
+const esc=x=>String(x??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const num=(v,otherwise=null)=>{const n=Number(v);return (v!==''&&v!==null&&Number.isFinite(n))?n:otherwise;};
+const round=v=>Math.round(v);
+function save(){try{localStorage.setItem(STORE,JSON.stringify(data));}catch(e){alert('保存失败：设备存储空间可能不足，请先导出备份。');}}
+function mutate(fn){fn();save();render();}
+function ensureDay(){return data.days[activeDate]??= {entries:[],activity:null,weight:null,poop:'unspecified',note:'',calorieOverride:null,mealOverrides:{}};}
+function showToast(msg){toastNode.textContent=msg;toastNode.classList.remove('hidden');clearTimeout(showToast._timer);showToast._timer=setTimeout(()=>toastNode.classList.add('hidden'),2800);}
+function openSheet(html){sheet.innerHTML=`<div class="sheet-handle"></div>${html}`;overlay.classList.remove('hidden');document.body.style.overflow='hidden';const auto=sheet.querySelector('[autofocus]');if(auto)setTimeout(()=>auto.focus(),100);}
+function closeSheet(){overlay.classList.add('hidden');document.body.style.overflow='';sheet.innerHTML='';}
+function formattedDate(date){const d=new Date(`${date}T12:00:00`);return `${d.getMonth()+1}月${d.getDate()}日`}
+function dateSelector(){const d=new Date(`${activeDate}T12:00:00`);const today=localDate();return `<div class="date-nav"><button class="date-btn" data-action="prev-date" aria-label="前一天">‹</button><div style="text-align:center"><strong>${formattedDate(activeDate)} ${activeDate===today?'· 今天':''}</strong><small>${['周日','周一','周二','周三','周四','周五','周六'][d.getDay()]} · ${d.getFullYear()}年</small></div><button class="date-btn" data-action="next-date" ${activeDate>=today?'disabled':''} aria-label="后一天">›</button></div>`}
+function changeDate(step){const d=new Date(`${activeDate}T12:00:00`);d.setDate(d.getDate()+step);const next=localDate(d);if(next<=localDate()){activeDate=next;render();}}
+function cardTitle(title,trailing=''){return `<h2 class="section-title">${title}${trailing?`<small>${trailing}</small>`:''}</h2>`;}
+function actionLink(name,action){return `<button class="link" data-action="${action}">${name} →</button>`;}
+function ring(percent){const radius=45,c=2*Math.PI*radius,dash=percent===null?0:Math.min(100,Math.max(0,percent))*c/100;return `<svg class="ring" viewBox="0 0 120 120" aria-label="摄入占预计消耗的百分比"><circle cx="60" cy="60" r="45" fill="none" stroke="rgba(255,255,255,.15)" stroke-width="10"/><circle cx="60" cy="60" r="45" fill="none" stroke="#d1f5df" stroke-width="10" stroke-linecap="round" transform="rotate(-90 60 60)" stroke-dasharray="${dash} ${c}"/><text x="60" y="58" text-anchor="middle">${percent===null?'—':round(percent)+'%'}</text><text class="ring-small" x="60" y="75" text-anchor="middle">${percent===null?'缺活动数据':'参考消耗'}</text></svg>`;}
+function macroCard(day){const n=sums(day.entries);const targets=NUTRIENTS.filter(x=>x.key!=='sodium');return `<div class="card">${targets.map(v=>{const cur=n.result[v.key],missing=n.missing[v.key],part=100*cur/v.target;return `<div class="nutrient-row"><span class="nutrient-name">${v.label}${missing?' *':''}</span><div class="nutrient-bar"><div class="nutrient-progress" style="width:${Math.min(100,part)}%"></div></div><span class="nutrient-val">${fmt(cur)} / ${v.target}</span></div>`}).join('')}${(()=>{const v=NUTRIENTS.at(-1), cur=n.result.sodium, missing=n.missing.sodium;return `<div class="nutrient-row"><span class="nutrient-name">${v.label}${missing?' *':''}</span><div class="nutrient-bar"><div class="nutrient-progress ${cur>=v.target?'alert':''}" style="width:${Math.min(100,100*cur/v.target)}%"></div></div><span class="nutrient-val">${fmt(cur)} / &lt;${v.target}</span></div>`})()}<div class="card-caption">* 部分食物未提供该营养成分，显示的是<strong>已知量</strong>，不能直接当作全天准确摄入。目标值为一般参考，非医学处方。</div></div>`;}
+function noteAdvice(day){const advice=nutritionAdvice(day,data.settings);return advice.map(x=>`<div class="tip-card ${x.severity==='warn'?'warning':''}"><div class="tip-glyph">${x.severity==='warn'?'!':'✦'}</div><div class="tip-body"><strong>${esc(x.title)}</strong><p>${esc(x.message)}</p><div class="tip-action">${esc(x.action)}</div></div></div>`).join('');}
+function renderHome(){
+  const day=getDay(data,activeDate),tot=calorieTotals(day),e=expend(day,data.settings),raw=sums(day.entries).result;const balance=e.total-tot.display;
+  const label=tot.override!==null?'全天确认值':'今日累计'; const formattedW=Number.isFinite(day.weight)?fmt(day.weight):'—';
+  const dailyNote=day.entries.length===0?'今天还没有录入食物。':'已按食品标签／估算值计算；可随时修改。';
+  return `<div class="eyebrow">YOUR DAILY BALANCE</div><h1 class="hero-title">每一口，都有迹可循。</h1><div class="hero-sub">记录饮食与体重，让营养管理更轻松。</div>${dateSelector()}
+  <section class="energy-card"><div class="energy-top"><span>${label}</span><span class="green-tag">${tot.override!==null?'✦ 已校准':'✦ 持续累加'}</span></div><div class="energy-row"><div><div class="cal-main">${fmt(round(tot.display))}</div><div class="cal-unit">kcal 已摄入</div></div>${ring(e.activityKnown?(e.total?100*tot.display/e.total:0):null)}</div><div class="energy-divider"></div><div class="energy-footer"><div class="energy-metric"><small>${e.activityKnown?'估算全天消耗':'估算消耗下限'}</small><strong>${e.activityKnown?'':'≥'}${fmt(e.total)} <small>kcal</small></strong></div><div class="energy-metric"><small>${!e.activityKnown?'缺口 / 盈余':balance>=0?'估算热量缺口':'估算热量盈余'}</small><strong class="${balance>=0&&e.activityKnown?'positive':''}">${e.activityKnown?fmt(Math.abs(balance)):'—'} <small>${e.activityKnown?'kcal':'待填活动'}</small></strong></div></div><div class="energy-note">按基准体重 ${data.settings.baselineKg} kg 计算基础代谢 ${e.bmr}，加活动消耗 ${e.activityKnown?e.activity:'未录入'} 及食物热效应约 ${e.tef} kcal。${e.activityKnown?'':'消耗下限不含活动热量。'}${esc(dailyNote)}</div></section>
+  <div class="mini-grid"><button class="mini-card mini-click" data-action="weight"><div class="mini-label">晨起体重 ↗</div><div class="mini-value">${formattedW}<span> kg</span></div><div class="mini-foot">目标 ${data.settings.goalMinKg}–${data.settings.goalMaxKg} kg</div></button><button class="mini-card mini-click" data-action="activity"><div class="mini-label">手环活动消耗 ↗</div><div class="mini-value green-text">${Number.isFinite(day.activity)?fmt(day.activity):'—'}<span> kcal</span></div><div class="mini-foot">仅填活动热量，不是总消耗</div></button></div>
+  ${cardTitle('营养进度','按目前已知营养量')}${macroCard(day)}
+  ${cardTitle('今日该补充什么','基于已知饮食判断')}${noteAdvice(day)}
+  ${cardTitle('餐食速览',actionLink('查看全部','go-food'))}<div class="card">${MEALS.map(m=>{const c=tot.byMeal[m.id];return `<div class="row" style="padding:9px 0;border-bottom:1px solid #f0f3f1"><span class="small-meta">${m.icon} ${m.label} <span style="color:#b4c1b8">· ${day.entries.filter(e=>e.meal===m.id).length} 项</span></span><strong style="font-size:12px">${fmt(c.display)} kcal</strong></div>`}).join('')}<div class="row top-gap">${actionLink('智能文字录入','quick')} ${actionLink('确认全天热量','override')}</div></div><div class="footnote">营养建议仅供一般健康记录。因食材、包装、烹饪方式及图片估算存在误差，实际摄入可能不同；较大或持续热量缺口不应作为维持期目标。</div>`;
+}
+function mealCard(day,m){const entries=day.entries.filter(e=>e.meal===m.id),tot=calorieTotals(day).byMeal[m.id];return `<div class="meal-card"><div class="meal-head"><div class="meal-name"><span class="meal-symbol">${m.icon}</span>${m.label} <span class="muted" style="font-size:10px;font-weight:400">${entries.length} 项</span></div><div class="meal-total">${fmt(tot.display)} kcal</div></div>${entries.length?entries.map(e=>{const kcal=calcNutrition(e).kcal;return `<div class="meal-item"><div style="flex:1"><div class="meal-item-title">${esc(e.name)} ${e.approx?'<span class="badge warn">估算</span>':''}</div><div class="meal-item-sub">${fmt(e.amount)} ${esc(e.unit||'')} · ${esc(e.origin||'食品库')}</div></div><div class="item-kcal">${kcal===null?'—':fmt(kcal)}</div><button class="ghost-delete" data-action="delete" data-id="${esc(e.id)}" aria-label="删除食物">✕</button></div>`}).join(''):`<div class="empty-text">还没有记录 ${m.label}</div>`}<div class="row" style="margin-top:12px"><button class="link" data-action="add-food" data-meal="${m.id}">＋ 添加${m.label}</button><button class="link" data-action="meal-override" data-meal="${m.id}">${tot.override===null?'校准本餐热量':`已校准 ${fmt(tot.override)} · 修改`}</button></div></div>`}
+function renderFood(){const day=getDay(data,activeDate),total=calorieTotals(day);return `<div class="eyebrow">FOOD JOURNAL</div><h1 class="hero-title">把每一餐，记清楚。</h1><div class="hero-sub">随手添加或输入自然语言；更改数量后自动重新计算。</div>${dateSelector()}
+<div class="card"><div class="row"><div><div class="small-meta">本日总摄入</div><div class="mini-value" style="margin-top:4px">${fmt(total.display)}<span> kcal</span></div></div><button class="primary-btn" data-action="quick">✦ 智能速记</button></div>${total.override!==null?`<div class="card-caption">食品逐项累计约 ${fmt(total.estimated)} kcal；按你确认的全天 ${fmt(total.override)} kcal 作为总计。营养分析仍依据食品记录。</div>`:''}</div>
+${cardTitle('按餐次记录',actionLink('添加食物','add-food'))}${MEALS.map(m=>mealCard(day,m)).join('')}
+<div class="row" style="margin-top:18px"><button class="secondary-btn" data-action="custom">＋ 未收录的食物</button><button class="secondary-btn" data-action="override">调整全天总热量</button></div>
+<div class="footnote">支持“50g燕麦；减醇1袋；白水蛋4个；大番茄750g”等表达；暂不识别图片，也不会凭空猜测未知食品的营养。</div>`}
+function makeChart(){const dates=daysBack(activeDate,14);const points=dates.map(d=>({d,w:Number.isFinite(data.weightHistory[d])?data.weightHistory[d]:getDay(data,d).weight})).filter(x=>Number.isFinite(x.w));
+ if(!points.length)return `<div class="empty-text">尚无体重记录。点击总览中的晨重卡片添加。</div>`;
+ const vals=points.map(p=>p.w); const mn=Math.min(...vals)-.4,mx=Math.max(...vals)+.4;const x=(d)=>25+((dates.indexOf(d))/(dates.length-1))*300,y=v=>140-(v-mn)/(mx-mn)*118;
+ const poly=points.map(p=>`${x(p.d).toFixed(1)},${y(p.w).toFixed(1)}`).join(' ');
+ return `<svg class="weight-chart" viewBox="0 0 340 170" role="img" aria-label="最近14日晨重曲线"><line class="chart-grid" x1="22" y1="25" x2="330" y2="25"/><line class="chart-grid" x1="22" y1="85" x2="330" y2="85"/><line class="chart-grid" x1="22" y1="145" x2="330" y2="145"/><text class="chart-label" x="0" y="25">${mx.toFixed(1)}</text><text class="chart-label" x="0" y="146">${mn.toFixed(1)}</text><polyline class="chart-line" points="${poly}"/>${points.map(p=>`<circle class="chart-circle" cx="${x(p.d)}" cy="${y(p.w)}" r="4"/>`).join('')}<text class="chart-label" x="25" y="162">${formattedDate(dates[0])}</text><text class="chart-label" x="286" y="162">${formattedDate(dates.at(-1))}</text></svg>`;
+}
+function renderTrends(){const dates=daysBack(activeDate,7);const weights=dates.map(d=>data.weightHistory[d]??getDay(data,d).weight).filter(Number.isFinite);const avg=weights.length?weights.reduce((a,b)=>a+b,0)/weights.length:null;const totalCals=dates.reduce((a,d)=>a+calorieTotals(getDay(data,d)).display,0);const daysWithFood=dates.filter(d=>getDay(data,d).entries.length||calorieTotals(getDay(data,d)).override!==null).length;
+return `<div class="eyebrow">PROGRESS REPORT</div><h1 class="hero-title">不被单日数字定义。</h1><div class="hero-sub">看趋势，不把储水、排便差异当成体脂变化。</div>${dateSelector()}
+${cardTitle('晨重曲线','近14天')}<div class="card">${makeChart()}<div class="card-caption">实际晨重与基准 ${data.settings.baselineKg} kg 分开记录。运动后疲劳、钠摄入和排便时间可影响短期体重。</div></div>
+<div class="mini-grid"><div class="mini-card"><div class="mini-label">近7天晨重均值</div><div class="mini-value">${avg===null?'—':fmt(avg)}<span> kg</span></div><div class="mini-foot">有 ${weights.length} 天记录</div></div><div class="mini-card"><div class="mini-label">有饮食记录日均摄入</div><div class="mini-value green-text">${daysWithFood?fmt(round(totalCals/daysWithFood)):'—'}<span> kcal</span></div><div class="mini-foot">有 ${daysWithFood} 天记录</div></div></div>
+${cardTitle('最近7天摄入','确认值优先')}<div class="card">${dates.map(d=>{const day=getDay(data,d),k=calorieTotals(day),c=day.entries.length||k.override!==null;return `<div class="row" style="padding:10px 0;border-bottom:1px solid #f1f4f1"><div class="small-meta">${formattedDate(d)} ${d===localDate()?'· 今天':''}</div><div class="small-meta" style="flex:1;height:5px;background:#eef4ef;border-radius:10px;margin:0 12px"><div style="height:100%;width:${Math.max(0,Math.min(100,100*k.display/3500))}%;background:#6baf94;border-radius:10px"></div></div><strong style="font-size:11px">${c?fmt(k.display)+' kcal':'未录入'}</strong></div>`}).join('')}</div>`}
+function renderProfile(){return `<div class="eyebrow">PERSONAL SETTINGS</div><h1 class="hero-title">只属于你的数据。</h1><div class="hero-sub">可修改身体基准，或导入私人历史记录。</div>
+${cardTitle('身体基准',actionLink('编辑','settings'))}<div class="profile-list"><div class="profile-stat"><span>基础计算体重</span><strong>${fmt(data.settings.baselineKg)} kg</strong></div><div class="profile-stat"><span>真实晨重目标区间</span><strong>${fmt(data.settings.goalMinKg)} – ${fmt(data.settings.goalMaxKg)} kg</strong></div><div class="profile-stat"><span>身高 · 年龄</span><strong>${fmt(data.settings.heightCm)} cm · ${data.settings.age} 岁</strong></div><div class="profile-stat"><span>基础代谢估算（Mifflin-St Jeor）</span><strong>${bmr(data.settings)} kcal / 天</strong></div></div>
+${cardTitle('隐私与数据')}<div class="card"><div class="row"><div><strong style="font-size:12px">保存在当前设备</strong><p class="small-meta" style="max-width:220px;line-height:1.7">目前所有记录存于本机浏览器，未上传第三方服务器。</p></div><span class="badge">离线可用</span></div><div class="divider"></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:9px"><button class="secondary-btn" data-action="export">导出 JSON 备份</button><button class="secondary-btn" data-action="import">导入历史记录</button></div><div class="row top-gap">${actionLink('清空所有本机数据','reset')}</div></div>
+${cardTitle('关于 ChatGPT 项目同步')}<div class="info-box"><strong>重要：尚未直连 ChatGPT 的「体重管理」项目。</strong><br>当前支持文字速记、食品库统计与 JSON 导入。ChatGPT 对话不会自动流入本应用；要实现双向实时同步，需要额外授权的服务器接口。请勿把个人记录公开上传到 GitHub Pages。</div>
+${cardTitle('计量与提醒')}<div class="card"><div class="metric-list"><span>蛋白质参考</span><strong>90–116 g / 天</strong><span>膳食纤维参考</span><strong>30 g / 天</strong><span>钾参考</span><strong>3400 mg / 天</strong><span>钠上限参考</span><strong>&lt;2000 mg / 天</strong></div></div><div class="footnote">软件不替代医生与营养师的建议；特别是钾补充剂、肾功能问题和异常水肿，应以专业意见为准。</div>`}
+function render(){const nav=document.querySelectorAll('.tab');nav.forEach(t=>t.classList.toggle('selected',t.dataset.tab===tab));main.innerHTML=({home:renderHome,food:renderFood,trends:renderTrends,profile:renderProfile})[tab]();}
+function header(title,sub=''){return `<h2 class="sheet-title">${title}</h2><div class="sheet-sub">${sub}</div>`}
+function mealDropdown(value){return `<select id="mealField" class="input">${MEALS.map(m=>`<option value="${m.id}" ${m.id===value?'selected':''}>${m.label}</option>`).join('')}</select>`}
+function openFoodPicker(meal='lunch'){
+  let selected=FOOD_DB[0],query='';
+  openSheet(header('添加食物','查找经常吃的食物，按实际克数、毫升或份数记录。')+`<label class="field-label">搜索食品</label><input class="input" id="foodQuery" placeholder="如：燕麦、卤牛肉、豆浆" autofocus /><div id="foodList" style="max-height:38dvh;overflow:auto"></div><div class="row top-gap"><button class="link" id="newCustom">＋ 新建食品</button><button class="link" id="newQuick">✦ 用文字速记</button></div>`);
+  const list=sheet.querySelector('#foodList');
+  function draw(){const matched=FOOD_DB.filter(f=>`${f.name}${f.aliases.join('')}`.toLowerCase().includes(query.toLowerCase())).slice(0,15);list.innerHTML=matched.length?matched.map(f=>`<button class="food-result" data-food="${f.id}"><span><strong>${esc(f.name)}</strong><small>${f.category} · 每 ${f.base} ${f.unit} ${f.approx?'约':''}${fmt(f.kcal)} kcal</small></span><b>添加 ↗</b></button>`).join(''):`<div class="empty-text">暂未收录。可以添加自定义食物。</div>`;}
+  sheet.querySelector('#foodQuery').addEventListener('input',e=>{query=e.target.value;draw()});
+  list.onclick=e=>{const btn=e.target.closest('[data-food]');if(btn)openQty(FOOD_DB.find(f=>f.id===btn.dataset.food),meal);};
+  sheet.querySelector('#newCustom').onclick=()=>openCustom(meal);
+  sheet.querySelector('#newQuick').onclick=()=>openQuick(meal);
+  draw();
+}
+function openQty(food,meal='lunch'){
+ openSheet(header(food.name,`计量单位 ${food.unit}。热量参考：${fmt(food.kcal)} kcal / ${food.base} ${food.unit}${food.approx?'（估算）':''}`)+`<label class="field-label">记录到哪个餐次</label>${mealDropdown(meal)}<label class="field-label">数量 (${food.unit})</label><input class="input" id="amount" type="number" min="0.1" step="any" value="${food.unit==='个'||food.unit==='袋'?1:food.base}" autofocus/><div class="qty-card"><div class="qty-top"><span class="small-meta">预计热量</span><strong id="qtyCal" class="qty-cal">${fmt(food.kcal)} kcal</strong></div><div class="card-caption">其它营养按比例换算；食品库包含通用估计和你曾发送的包装数据。</div></div><div class="sheet-buttons"><button class="secondary-btn" data-close>取消</button><button class="primary-btn" id="saveQty">添加到记录</button></div>`);
+ const a=sheet.querySelector('#amount'),calc=()=>sheet.querySelector('#qtyCal').textContent=`${fmt(food.kcal*(num(a.value,0)/food.base))} kcal`;
+ a.addEventListener('input',calc);
+ sheet.querySelector('#saveQty').onclick=()=>{const amount=num(a.value);if(!amount||amount<=0||amount>10000){showToast('请输入有效数量');return;}mutate(()=>ensureDay().entries.push({id:uuid(),name:food.name,foodId:food.id,meal:sheet.querySelector('#mealField').value,amount,unit:food.unit,approx:!!food.approx,origin:'食品库'}));closeSheet();showToast(`已添加 ${food.name}`);};
+}
+function openCustom(meal='lunch'){
+ openSheet(header('自定义食品','不知道的营养项请留空，软件不会把未知项误当成零。')+`<label class="field-label">食品名称</label><input class="input" id="customName" placeholder="如：学校食堂午餐" autofocus /><div class="input-grid"><div><label class="field-label">数量</label><input class="input" id="customAmount" type="number" value="1" step="any"/></div><div><label class="field-label">单位</label><input class="input" id="customUnit" value="份"/></div></div><label class="field-label">餐次</label>${mealDropdown(meal)}<div class="input-grid">${[['kcal','热量 kcal'],['protein','蛋白质 g'],['carbs','碳水 g'],['fat','脂肪 g'],['fiber','膳食纤维 g'],['sodium','钠 mg'],['potassium','钾 mg'],['calcium','钙 mg'],['vitC','维生素C mg']].map(([id,name])=>`<div><label class="field-label">${name}</label><input class="input custom-nutrient" data-n="${id}" type="number" step="any" min="0" placeholder="未知"/></div>`).join('')}</div><div class="sheet-buttons"><button class="secondary-btn" data-close>取消</button><button class="primary-btn" id="saveCustom">保存食品记录</button></div>`);
+ sheet.querySelector('#saveCustom').onclick=()=>{const name=sheet.querySelector('#customName').value.trim(),amount=num(sheet.querySelector('#customAmount').value),unit=sheet.querySelector('#customUnit').value.trim()||'份';if(!name||!amount||amount<=0){showToast('请填写食品名称和正数数量');return;}const entry={id:uuid(),name,meal:sheet.querySelector('#mealField').value,custom:true,amount,unit,origin:'手动录入'};for(const f of sheet.querySelectorAll('.custom-nutrient'))entry[f.dataset.n]=num(f.value);if(entry.kcal===null){showToast('请至少填写热量');return;}mutate(()=>ensureDay().entries.push(entry));closeSheet();showToast('已添加自定义记录');};
+}
+function openQuick(meal='dinner'){
+ openSheet(header('✦ 智能文字速记','无需网络，用常见食物名称与数量识别；不支持未知食物或图片自动识别。')+`<label class="field-label">直接粘贴今天的报餐内容</label><textarea class="input" id="quickText" autofocus placeholder="晚餐：燕麦50g；减醇1袋；白水蛋4个；大番茄750g；卤牛肉125g"></textarea><label class="field-label">默认餐次（未写餐次时）</label>${mealDropdown(meal)}<button id="previewQuick" class="plain-btn" style="width:100%;margin-top:15px">预览识别结果</button><div id="quickPreview"></div><div class="sheet-buttons"><button class="secondary-btn" data-close>取消</button><button class="primary-btn" id="saveQuick">确认加入今日</button></div>`);
+ const draw=()=>{const txt=sheet.querySelector('#quickText').value, selected=sheet.querySelector('#mealField').value;const result=quickParse(txt,selected);sheet.querySelector('#quickPreview').innerHTML=`<div class="qty-card">${result.items.length?result.items.map(e=>`<div class="row" style="padding:6px 0"><span style="font-size:11px">${esc(e.name)} ${fmt(e.amount)}${esc(e.unit)} · ${MEALS.find(m=>m.id===e.meal).label}</span><b style="font-size:11px">${fmt(calcNutrition(e).kcal)} kcal</b></div>`).join(''):'<div class="small-meta">暂未识别到食物</div>'}${result.recognizedOverride!==null?`<div class="small-green" style="margin-top:9px">全天确认热量：${result.recognizedOverride} kcal</div>`:''}${result.unknown.length?`<div class="card-caption" style="color:#b37f5b">未识别，需另行手动补录：${esc(result.unknown.join('、'))}</div>`:''}</div>`;return result;};
+ sheet.querySelector('#previewQuick').onclick=draw;
+ sheet.querySelector('#saveQuick').onclick=()=>{const result=draw();if(!result.items.length&&result.recognizedOverride===null){showToast('没有可导入的记录');return;}mutate(()=>{const d=ensureDay();d.entries.push(...result.items);if(result.recognizedOverride!==null)d.calorieOverride=result.recognizedOverride});closeSheet();showToast(result.unknown.length?`成功导入 ${result.items.length} 项，另有未识别内容`:`成功导入 ${result.items.length} 项`);};
+}
+function openWeight(){const d=getDay(data,activeDate);openSheet(header('记录晨起体重','与基础计算体重分开。建议记录起床、排尿后且进食前的数值。')+`<label class="field-label">真实晨重 (kg)</label><input class="input" type="number" min="20" max="300" step="0.05" value="${d.weight??''}" id="weightValue" autofocus placeholder="例如 73.50"/><label class="field-label">排便情况</label><select class="input" id="poopValue"><option value="unspecified" ${d.poop==='unspecified'?'selected':''}>未说明</option><option value="before" ${d.poop==='before'?'selected':''}>排便前</option><option value="after" ${d.poop==='after'?'selected':''}>排便后</option></select><div class="sheet-buttons"><button class="secondary-btn" data-close>取消</button><button class="primary-btn" id="saveWeight">保存晨重</button></div>`);sheet.querySelector('#saveWeight').onclick=()=>{const w=num(sheet.querySelector('#weightValue').value);if(!(w>20&&w<300)){showToast('请输入有效晨重');return;}mutate(()=>{const day=ensureDay();day.weight=w;day.poop=sheet.querySelector('#poopValue').value;data.weightHistory[activeDate]=w;});closeSheet();showToast('已更新晨重（不改变固定的代谢计算基准）');};}
+function openActivity(){const d=getDay(data,activeDate);openSheet(header('记录手环活动消耗','只填手表显示的“活动热量”，不要输入包含静息消耗的“总热量”。')+`<label class="field-label">活动消耗 (kcal)</label><input class="input" type="number" min="0" max="10000" id="activityValue" value="${d.activity??''}" autofocus/><div class="sheet-buttons"><button class="secondary-btn" data-close>取消</button><button class="primary-btn" id="saveActivity">保存运动消耗</button></div>`);sheet.querySelector('#saveActivity').onclick=()=>{const v=num(sheet.querySelector('#activityValue').value);if(v===null||v<0||v>10000){showToast('请输入有效活动热量');return;}mutate(()=>ensureDay().activity=v);closeSheet();showToast('已更新活动消耗');};}
+function openOverride(meal=null){const d=getDay(data,activeDate);const existing=meal?(d.mealOverrides?.[meal]??''):(d.calorieOverride??'');const isMeal=!!meal;
+openSheet(header(isMeal?'本餐热量校准':'全天热量校准',isMeal?'如果整餐估算比食物分项更可靠，可直接确认本餐总热量。':'例如你习惯说“全天直接按2000卡算”，可在这里确认最终总计。')+`<label class="field-label">${isMeal?'整餐':'全天'}确认热量 (kcal)</label><input type="number" class="input" id="overrideValue" value="${existing}" min="0" step="any" placeholder="留空表示取消校准" autofocus/><div class="info-box top-gap">食品清单仍会保留；营养成分继续由每项食物计算，校准热量不会凭空生成蛋白质或维生素数值。</div><div class="sheet-buttons"><button class="secondary-btn" data-close>取消</button><button class="primary-btn" id="saveOverride">保存校准</button></div>`);
+ sheet.querySelector('#saveOverride').onclick=()=>{const raw=sheet.querySelector('#overrideValue').value,v=num(raw);if(v!==null&&(v<0||v>30000)){showToast('请输入有效热量');return;}mutate(()=>{const d=ensureDay();if(isMeal){if(v===null)delete d.mealOverrides[meal];else d.mealOverrides[meal]=v;}else d.calorieOverride=v;});closeSheet();showToast(v===null?'已取消校准':'已更新确认热量');};
+}
+function openSettings(){const s=data.settings;openSheet(header('调整身体基准','实际晨重与固定的代谢计算体重是两套独立数据。')+`<div class="input-grid">${[['baselineKg','基准体重 kg'],['heightCm','身高 cm'],['age','年龄'],['goalMinKg','目标下限 kg'],['goalMaxKg','目标上限 kg']].map(([k,title])=>`<div><label class="field-label">${title}</label><input class="input setting-val" data-key="${k}" type="number" step="any" min="1" value="${s[k]}"/></div>`).join('')}</div><div class="sheet-buttons"><button class="secondary-btn" data-close>取消</button><button class="primary-btn" id="saveSettings">保存基准</button></div>`);sheet.querySelector('#saveSettings').onclick=()=>{const updates={};for(const inp of sheet.querySelectorAll('.setting-val')){const n=num(inp.value);if(n===null||n<=0||n>400){showToast('检查基准数值');return;}updates[inp.dataset.key]=n;}if(updates.goalMinKg>updates.goalMaxKg){showToast('目标体重区间顺序有误');return;}mutate(()=>Object.assign(data.settings,updates));closeSheet();showToast('已更新身体基准');};}
+function exportBackup(){const text=JSON.stringify(data,null,2),blob=new Blob([text],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=`轻衡-私人备份-${localDate()}.json`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);showToast('已生成 JSON 备份，请妥善保存');}
+function openImport(){openSheet(header('导入历史备份','可选择附带的私人初始记录文件，或曾经由本应用导出的 JSON。导入会覆盖当前本机记录。')+`<div class="info-box">请只导入自己信任的 JSON 文件。导入前建议先导出当前记录作为备份。</div><label class="field-label">选择 .json 文件</label><input class="input" id="importFile" type="file" accept=".json,application/json"/><div id="importDesc" class="card-caption"></div><div class="sheet-buttons"><button class="secondary-btn" data-close>取消</button><button class="primary-btn" id="submitImport">确认导入</button></div>`);sheet.querySelector('#submitImport').onclick=async()=>{const file=sheet.querySelector('#importFile').files?.[0];if(!file){showToast('先选择文件');return;}if(file.size>2_000_000){showToast('备份文件太大');return;}let next;try{next=validateState(JSON.parse(await file.text()));}catch(e){showToast(`文件有误：${e.message}`);return;}if(!confirm(`确认覆盖本机所有记录？\n该文件包含 ${Object.keys(next.days).length} 天的记录。`))return;data=next;save();closeSheet();activeDate=localDate();render();showToast('历史记录导入成功');};}
+function reset(){if(confirm('这将清空本机所有饮食、晨重和设置，且无法撤销。确定继续？')){if(confirm('最后确认：你已经导出必要的备份了吗？')){data={...initState(),days:{},weightHistory:{}};save();tab='home';activeDate=localDate();render();showToast('本机数据已清空');}}}
+const actions={
+ 'prev-date':()=>changeDate(-1),'next-date':()=>changeDate(1),'go-food':()=>{tab='food';render()},'add-food':a=>openFoodPicker(a.dataset.meal||'lunch'),
+ 'quick':()=>openQuick(),'custom':()=>openCustom(),'weight':()=>openWeight(),'activity':()=>openActivity(),
+ 'override':()=>openOverride(),'meal-override':a=>openOverride(a.dataset.meal),
+ 'delete':a=>{const entry=getDay(data,activeDate).entries.find(e=>e.id===a.dataset.id);if(entry&&confirm(`删除 ${entry.name}？`))mutate(()=>ensureDay().entries=ensureDay().entries.filter(e=>e.id!==a.dataset.id));},
+ 'settings':()=>openSettings(),'export':()=>exportBackup(),'import':()=>openImport(),'reset':()=>reset()
+};
+main.addEventListener('click',e=>{const a=e.target.closest('[data-action]');if(a&&actions[a.dataset.action])actions[a.dataset.action](a);});
+document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>{tab=b.dataset.tab;main.scrollTop=0;window.scrollTo(0,0);render()}));
+document.querySelector('#addButton').onclick=()=>openFoodPicker('lunch');
+document.querySelector('#menuButton').onclick=()=>{tab='profile';render();window.scrollTo(0,0)};
+overlay.addEventListener('click',e=>{if(e.target===overlay||e.target.closest('[data-close]'))closeSheet()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.classList.contains('hidden'))closeSheet()});
+window.addEventListener('storage',e=>{if(e.key===STORE&&e.newValue){try{data=validateState(JSON.parse(e.newValue));render();}catch{}}});
+let seenDate=localDate();document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&seenDate!==localDate()){const prev=seenDate;seenDate=localDate();if(activeDate===prev){activeDate=seenDate;render();}showToast('已切换到新的一天');}});
+
+render();
+
+</script>
+<script>
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js', {scope:'./'}).catch(err => console.warn('Offline setup failed:',err)));
+}
+</script>
+</body></html>
