@@ -1,0 +1,12 @@
+{
+  "name": "轻衡 2.0",
+  "short_name": "轻衡 2.0",
+  "description": "轻衡 2.0 跨平台体重与营养管理应用",
+  "lang": "zh-CN",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f8f7",
+  "theme_color": "#f6f8f7",
+  "icons": [{"src":"./icon.png","sizes":"192x192","type":"image/png","purpose":"any"}]
+}

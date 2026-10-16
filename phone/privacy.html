@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="zh-CN"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f6f8f7"><title>轻衡隐私政策</title>
+<style>:root{color-scheme:light;--bg:#f6f8f7;--card:#fff;--ink:#18302c;--muted:#657a72;--green:#236e61;--line:#e7eeea}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;line-height:1.8}.wrap{max-width:760px;margin:auto;padding:30px 18px 60px}.card{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:clamp(22px,5vw,44px);box-shadow:0 14px 45px rgba(26,65,53,.06)}h1{margin:0;font-size:30px;letter-spacing:-1px}h2{font-size:18px;margin:32px 0 8px}p,li{font-size:14px;color:var(--muted)}ul{padding-left:22px}.meta{margin:8px 0 24px;padding:14px 16px;border-radius:14px;background:#edf6f1;font-size:13px;color:#456d5e}.brand{font-size:13px;font-weight:800;letter-spacing:2px;color:var(--green);margin-bottom:8px}a{color:var(--green);font-weight:700}.foot{border-top:1px solid var(--line);margin-top:32px;padding-top:20px;font-size:12px;color:#82938c}</style>
+</head><body><main class="wrap"><article class="card">
+<div class="brand">QINGHENG · 轻衡</div><h1>隐私政策</h1>
+<div class="meta">生效日期：2026年10月16日<br>运营者：蔡沂岑<br>联系邮箱：<a href="mailto:caiyicen54@gmail.com">caiyicen54@gmail.com</a><br>政策版本：2026-10-16</div>
+<h2>一、我们处理的信息</h2><p>轻衡用于记录体重、饮食、活动热量、排便情况和营养数据。用户主动填写的身体资料、健康记录和应用设置默认保存在当前设备中。轻衡无需注册账号即可使用，运营者不会据此建立线上用户档案。</p>
+<h2>二、AI 识别</h2><p>AI 是可选功能。用户可以自行填写第三方 AI 服务的接口地址、模型标识和 API Key。只有用户主动点击照片、相册或文字识别并确认发送时，所选图片、文字以及完成识别所需的提示信息才会直接发送到用户选择的 AI 服务商。轻衡不会通过运营者服务器中转 AI 识别内容。</p><p>API Key 保存在 Android 系统安全存储中，不进入轻衡 JSON 备份。AI 返回内容会先显示为待确认草稿，用户确认后才写入本机记录。</p>
+<h2>三、私人同步</h2><p>私人同步默认关闭。用户主动启用后，轻衡会连接用户配置的 HTTPS 同步服务，使用只读令牌获取等待导入的记录事件。只读令牌保存在 Android 系统安全存储中，不进入 JSON 备份。</p><p>如用户使用运营者提供的 Cloudflare Workers/KV 私人同步服务，事件将保留至用户申请删除或相关服务终止。用户可通过本政策所列邮箱申请删除云端事件。</p>
+<h2>四、权限使用</h2><ul><li>网络权限：用于用户主动调用 AI 服务、测试接口和使用已配置的私人同步。</li><li>麦克风权限：仅在用户点击语音录入时申请，用于调用 Android 系统语音识别；轻衡不保存原始录音。</li><li>照片与相机：仅在用户主动拍照或选择图片时，通过 Android 系统界面取得用户选择的单张图片；轻衡不扫描整个相册。</li></ul><p>拒绝麦克风、照片或相机相关授权，不影响手工记录、本地食品库、体重趋势和备份等功能。</p>
+<h2>五、第三方服务与组件</h2><p>轻衡使用 Capacitor Core、Capacitor App、Capacitor Camera 和 AndroidX 提供跨平台运行、系统交互、相机选图与兼容能力。这些运行组件不用于建立轻衡用户档案。</p><p>用户选择火山引擎/豆包或其他兼容 AI 服务时，用户主动发送的信息同时受对应服务商隐私政策约束。用户使用基于 Cloudflare Workers/KV 的私人同步时，网络请求和同步事件会由 Cloudflare 基础设施处理。</p>
+<h2>六、保存、导出与删除</h2><p>本机记录会保留到用户主动清空应用数据、卸载应用，或在“我的 → 隐私与数据”中清空全部本机数据。用户可以随时导出 JSON 备份。</p><p>API Key 和同步只读令牌不包含在备份中，可分别在 AI 设置和同步设置中删除或停用。用户也可以通过联系邮箱申请删除由运营者提供的私人同步服务中的云端事件。</p>
+<h2>七、未成年人</h2><p>轻衡主要面向具备独立健康管理能力的成年人。未成年人应在监护人指导下使用，不应将轻衡的估算结果用于自行诊断或治疗。</p>
+<h2>八、健康信息说明</h2><p>轻衡提供的是一般体重、饮食和营养记录及估算，不构成医学诊断、治疗建议或医疗器械功能。食材、烹饪方式、图片识别和用户输入均可能带来误差；存在疾病、特殊营养需求或异常症状时，应咨询医生或营养专业人员。</p>
+<h2>九、用户权利</h2><p>用户可以在应用内查看、更正、导出或删除本机记录，可以撤回非必要权限，也可以在“我的 → 隐私与数据”中撤回对本政策的同意。撤回后，轻衡会停止 AI 和私人同步等数据处理，直到用户再次同意。</p><p>用户可通过 <a href="mailto:caiyicen54@gmail.com">caiyicen54@gmail.com</a> 咨询隐私问题、提出投诉或申请删除云端事件。运营者将在适用法律和应用市场要求的期限内处理。</p>
+<h2>十、政策更新</h2><p>功能、第三方服务或数据处理方式发生重大变化时，运营者将更新本政策版本，并在应用内再次提示用户阅读和同意。</p>
+<div class="foot">© 2026 轻衡 · 蔡沂岑</div>
+</article></main></body></html>
