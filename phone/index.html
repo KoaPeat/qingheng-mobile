@@ -310,15 +310,17 @@ const AI_ORIGIN_VOICE='AI语音识别';
 const AI_ORIGIN_EXTERNAL='外部AI分享';
 const EXTERNAL_AI_PROMPT=`请根据我提供的文字或照片整理本次实际食用内容，最后只输出一个 JSON 对象，不要 Markdown、代码围栏或额外解释。格式：{"items":[{"name":"标准中文食物名","amount":150,"unit":"g","meal":"breakfast|lunch|dinner|snack","kcal":180,"protein":8,"carbs":25,"fat":5,"confidence":0.75}],"notes":"需要我核对的重量或烹饪信息"}。用户明确说明的重量优先；同盘食物分项；不要把餐具、包装或桌面当成食物；不要臆造看不见的油和酱料；营养值是本次食用总量，不确定写 null。`;
 const SYNC_URL_STORE='qingheng-2-test-sync-url-v1';
-const DEFAULT_SYNC_URL='https://qingheng-private-sync.caiyicen54.workers.dev';
+const LEGACY_SYNC_URL='https://qingheng-private-sync.caiyicen54.workers.dev';
+const DEFAULT_SYNC_URL='https://sync.qingheng.site';
 let aiConfig;
 try{aiConfig=normalizeAiConfig(JSON.parse(localStorage.getItem(AI_CONFIG_STORE)||'{}'));}catch{aiConfig={...DEFAULT_AI_CONFIG};}
 let aiKeyAvailable=false;
 let webAiApiKey='';
 let syncConfig={url:DEFAULT_SYNC_URL};
-try{const savedSyncUrl=localStorage.getItem(SYNC_URL_STORE);if(typeof savedSyncUrl==='string'&&savedSyncUrl)syncConfig.url=savedSyncUrl;}catch{}
+try{const savedSyncUrl=localStorage.getItem(SYNC_URL_STORE);if(typeof savedSyncUrl==='string'&&savedSyncUrl){syncConfig.url=savedSyncUrl.replace(/\/+$/,'')===LEGACY_SYNC_URL?DEFAULT_SYNC_URL:savedSyncUrl;if(syncConfig.url!==savedSyncUrl)localStorage.setItem(SYNC_URL_STORE,syncConfig.url);}}catch{}
 let syncReadTokenAvailable=false;
-const PHONE_READ_SESSION='qh-phone-read-session-v1',PHONE_WRITE_SESSION='qh-phone-write-session-v1',PHONE_OUTBOX='qh-phone-outbox-v1',PHONE_BOOTSTRAP='qh-phone-bootstrap-v1';
+const PHONE_READ_SESSION='qh-phone-read-session-v1',PHONE_WRITE_SESSION='qh-phone-write-session-v1',PHONE_OUTBOX='qh-phone-outbox-v1',PHONE_BOOTSTRAP='qh-phone-bootstrap-v1',PHONE_WRITE_ENABLED='qh-phone-write-enabled-v1';
+try{if(syncConfig.url===DEFAULT_SYNC_URL&&localStorage.getItem(PHONE_BOOTSTRAP)===LEGACY_SYNC_URL)localStorage.setItem(PHONE_BOOTSTRAP,DEFAULT_SYNC_URL);}catch{}
 let syncWriteTokenAvailable=false, phonePushBusy=false;
 let syncBusy=false;
 let activeSyncController=null;
@@ -337,7 +339,7 @@ function save(){try{localStorage.setItem(STORE,JSON.stringify(data));}catch(e){a
 function mutate(fn){
  const date=activeDate,before=JSON.parse(JSON.stringify(getDay(data,date)));
  fn();save();render();
- if(canPhonePush())try{enqueuePhoneDifference(date,before,getDay(data,date));}
+ if(!IS_NATIVE_APP&&syncConfig.url&&phoneBootstrapped()&&(syncWriteTokenAvailable||localStorage.getItem(PHONE_WRITE_ENABLED)==='1'))try{enqueuePhoneDifference(date,before,getDay(data,date));}
  catch(error){syncStatus='本机已保存，但云端排队失败：'+safeMessage(error,'未知错误');showToast(syncStatus);}
 }
 function ensureDay(){return data.days[activeDate]??= {entries:[],activity:null,weight:null,poop:'unspecified',note:'',calorieOverride:null,mealOverrides:{}};}
@@ -440,7 +442,7 @@ ${cardTitle('隐私与数据')}<div class="card"><div class="row"><div><strong s
 ${cardTitle('食品数据库')}<div class="card"><div class="row"><div><strong>内置常见食物 ${FOOD_DB.length} 项</strong><p class="small-meta">包含 ${CHAIN_FOODS.length} 项、${CHAIN_FOOD_SOURCES.length} 个中国内地连锁品牌官网数据，可离线搜索。</p></div><span class="badge">离线可用</span></div><div class="row top-gap"><button class="secondary-btn" data-action="chain-foods">连锁餐饮营养表</button><button class="secondary-btn" data-action="food-import">导入更多食品</button></div><div class="row top-gap"><button class="secondary-btn" data-action="food-export">导出自建食品</button></div></div>
 ${cardTitle('AI 服务')}<div class="card"><div class="row"><div><strong>${aiReady?'已配置 AI 接口':'等待配置 AI 接口'}</strong><p class="small-meta">${aiReady?`${esc(aiConfig.provider==='ark'?'火山方舟 / 豆包':'OpenAI 兼容服务')} · ${esc(aiConfig.model)} · ${esc(getRecognitionProfile(aiConfig.recognitionMode).label)}${aiConfig.lowLatency?' · 低延迟':''}`:'填写服务地址、模型和自己的 API Key 后启用照片与语音识别。'}</p></div><span class="badge ${aiReady?'':'warn'}">${aiReady?'可用':'未配置'}</span></div><div class="row top-gap"><button class="secondary-btn" data-action="ai-settings">AI 接口设置</button></div><p class="card-caption">Android 使用 Keystore；网页版密钥仅在当前页面内存保存。第三方服务可能因额度、下线或故障不可用，轻衡不承诺永久免费。</p></div>
 ${cardTitle('外部 AI → 轻衡')}<div class="card"><div class="row"><div><strong>支持连接器自动写入</strong><p class="small-meta" style="max-width:240px;line-height:1.7">支持 MCP 的 AI 一次连接后，可直接把报餐、晨重和活动追加到轻衡收件箱。</p></div><span class="badge">一次配置</span></div><div class="row top-gap"><button class="secondary-btn" data-action="external-ai-help">连接方法</button><button class="secondary-btn" data-action="external-ai-paste">分享/粘贴备用</button></div><p class="card-caption">豆包工作版等支持自定义连接器的 AI 可以自动调用；普通豆包若没有连接器入口，仍可使用 Android 系统分享。</p></div>
-${cardTitle('自动同步收件箱')}<div class="card"><div class="row"><div><strong>${syncReady?'自动同步已启用':'等待一次性连接'}</strong><p class="small-meta">${syncReady?`打开轻衡或回到前台时自动检查 · 已应用 ${data.syncEventIds?.length||0} 条事件`:'填写 Worker 地址和手机只读密钥后，轻衡会自动接收外部 AI 写入。'}</p></div><span class="badge ${syncReady?'':'warn'}">${syncReady?'已连接':'未配置'}</span></div><div class="row top-gap"><button class="secondary-btn" data-action="sync-config">同步设置</button><button class="secondary-btn" data-action="sync-now" ${syncReady?'':'disabled'}>立即同步</button><button class="secondary-btn" data-action="sync-push" ${syncWriteTokenAvailable?'':'disabled'}>重试上传</button></div><div class="row top-gap"><button class="secondary-btn" data-action="sync-paste">手动 JSON 备用</button></div><p class="card-caption" id="syncStatus">${esc(syncStatus)}</p><p class="card-caption">手机云端写入：${syncWriteTokenAvailable?'已授权':'未授权'} · 待上传 ${phoneOutbox().length} 条。网页版凭据仅保存于当前浏览器标签页会话，不进入代码或数据备份。</p><p class="card-caption">历史本地记录不会自动整批回填，避免与云端旧记录重复；首次接入前请先导出 JSON 备份。</p><div class="card-caption">${getDay(data,activeDate).note?'云端备注：'+esc(getDay(data,activeDate).note):''}</div></div>
+${cardTitle('自动同步收件箱')}<div class="card"><div class="row"><div><strong>${syncReady?'自动同步已启用':'等待一次性连接'}</strong><p class="small-meta">${syncReady?`打开轻衡或回到前台时自动检查 · 已应用 ${data.syncEventIds?.length||0} 条事件`:'填写 Worker 地址和手机只读密钥后，轻衡会自动接收外部 AI 写入。'}</p></div><span class="badge ${syncReady?'':'warn'}">${syncReady?'已配置':'未配置'}</span></div><div class="row top-gap"><button class="secondary-btn" data-action="sync-config">同步设置</button><button class="secondary-btn" data-action="sync-now" ${syncReady?'':'disabled'}>立即同步</button><button class="secondary-btn" data-action="sync-push" ${syncWriteTokenAvailable?'':'disabled'}>重试上传</button></div><div class="row top-gap"><button class="secondary-btn" data-action="sync-paste">手动 JSON 备用</button></div><p class="card-caption" id="syncStatus">${esc(syncStatus)}</p><p class="card-caption">手机云端写入：${syncWriteTokenAvailable?'已授权':'未授权'} · 待上传 ${phoneOutbox().length} 条。网页版凭据仅保存于当前浏览器标签页会话，不进入代码或数据备份。</p><p class="card-caption">历史本地记录不会自动整批回填，避免与云端旧记录重复；首次接入前请先导出 JSON 备份。</p><div class="card-caption">${getDay(data,activeDate).note?'云端备注：'+esc(getDay(data,activeDate).note):''}</div></div>
 ${cardTitle('个人营养目标')}<div class="card">${(()=>{const t=calculateNutritionTargets(data.settings);return `<div class="metric-list"><span>热量范围</span><strong>${fmt(t.calorie[0])}–${fmt(t.calorie[1])} kcal</strong><span>蛋白质</span><strong>${fmt(t.protein[0])}–${fmt(t.protein[1])} g</strong><span>碳水化合物</span><strong>${fmt(t.carbs[0])}–${fmt(t.carbs[1])} g</strong><span>脂肪</span><strong>${fmt(t.fat[0])}–${fmt(t.fat[1])} g</strong></div><p class="card-caption">${esc(t.mode.description)}</p>${t.restrictions.length?`<div class="warning-box info-box">${t.restrictions.map(esc).join('<br>')}</div>`:''}`})()}</div><div class="footnote">这些是健康成年人的起始参考规则，不是固定医学处方；连续趋势比单日偏差更有意义。</div>`}
 function render(){const nav=document.querySelectorAll('.tab');nav.forEach(t=>{const selected=t.dataset.tab===tab;t.classList.toggle('selected',selected);t.setAttribute('aria-current',selected?'page':'false');});main.innerHTML=({home:renderHome,food:renderFood,trends:renderTrends,profile:renderProfile})[tab]();}
 function animatePage(direction='forward'){if(reducedMotion.matches||typeof main.animate!=='function')return;for(const animation of main.getAnimations())if(animation.id==='qingheng-page-transition')animation.cancel();const offset=direction==='backward'?-16:16;const animation=main.animate([{opacity:.45,transform:`translate3d(${offset}px,0,0)`},{opacity:1,transform:'translate3d(0,0,0)'}],{duration:220,easing:'cubic-bezier(.22,.75,.18,1)'});animation.id='qingheng-page-transition';}
@@ -912,7 +914,7 @@ function openSyncPaste(){
  `<label class="field-label">粘贴 JSON（单条、数组或 {"events":[…]}）</label><textarea class="input" id="syncEventText" rows="8" style="min-height:190px" placeholder='{"id":"20261013-dinner-01","date":"2026-10-13","type":"day.patch","payload":{"weight":73.6}}'></textarea><div class="info-box top-gap">此操作只更改 JSON 中明确列出的项目；不会清空旧的饮食历史。相同 id 不会重复导入。</div><div class="sheet-buttons"><button class="secondary-btn" data-close>取消</button><button class="primary-btn" id="applySyncPaste">确认合并</button></div>`);
  sheet.querySelector('#applySyncPaste').onclick=()=>{try{const res=applySyncEvents(sheet.querySelector('#syncEventText').value);closeSheet();showToast(`合并 ${res.applied} 条，跳过重复 ${res.duplicate} 条`);}catch(e){showToast(e.message||'JSON 无效');}};
 }
-function validSyncUrl(url){try{const u=new URL(url);return u.protocol==='https:'&&!u.username&&!u.password&&!u.search&&!u.hash&&(u.hostname.endsWith('.workers.dev')||u.hostname.endsWith('.pages.dev')||u.hostname.endsWith('.cloudflare.net'));}catch{return false;}}
+function validSyncUrl(url){try{const u=new URL(url);return u.protocol==='https:'&&!u.username&&!u.password&&!u.search&&!u.hash&&!u.port&&u.pathname==='/'&&(u.hostname==='sync.qingheng.site'||u.hostname.endsWith('.workers.dev')||u.hostname.endsWith('.pages.dev')||u.hostname.endsWith('.cloudflare.net'));}catch{return false;}}
 // 浏览器没有 Android SecureSettings；仅在本标签 sessionStorage 保存用户手动输入的凭据。
 function readPhoneSession(key){try{return sessionStorage.getItem(key)||'';}catch{return '';}}
 function storePhoneSession(key,value){if(value)sessionStorage.setItem(key,value);else sessionStorage.removeItem(key);}
@@ -937,7 +939,8 @@ async function flushPhoneOutbox(manual=false){
   while(phoneOutbox().length){
    const current=phoneOutbox()[0],token=readPhoneSession(PHONE_WRITE_SESSION);
    if(!token)throw Error('手机写入凭据已失效');
-   const response=await fetch(syncConfig.url+'/v1/events',{method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(current),mode:'cors',cache:'no-store'});
+   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);let response;
+   try{response=await fetch(syncConfig.url+'/v1/events',{method:'POST',headers:{'Authorization':'Bearer '+token,'Content-Type':'application/json'},body:JSON.stringify(current),mode:'cors',cache:'no-store',signal:controller.signal});}finally{clearTimeout(timer);}
    if(!response.ok)throw Error(response.status===401?'写入密钥错误（401）':response.status===409?'云端事件ID冲突（409）':'上传 HTTP '+response.status);
    const ack=await response.json();if(!ack?.ok||ack.id!==current.id)throw Error('云端回执格式不正确');
    data.syncEventIds=[...new Set([...(data.syncEventIds||[]),current.id])].slice(-5000);save();
@@ -967,7 +970,7 @@ async function readSyncReadToken(){
 async function openSyncConfig(){
  const hasToken=await refreshSyncReadTokenStatus(),web=!IS_NATIVE_APP;
  openSheet(header('云端双向同步设置',web?'手机 Safari ↔ Cloudflare ↔ ChatGPT 体重观察，不需要电脑保持开机。':'原生 Android 同步设置')+
- `<label class="field-label">Cloudflare Worker HTTPS 地址</label><input class="input" id="syncUrl" type="url" spellcheck="false" autocomplete="off" value="${esc(syncConfig.url)}" placeholder="https://xxxx.workers.dev"/><label class="field-label top-gap">${web?'手机只读密钥':'手机只读密钥（Keystore）'}（QH_READ_TOKEN）</label><input class="input" id="syncReadToken" type="password" autocomplete="off" spellcheck="false" maxlength="4096" placeholder="${hasToken?'当前已填写，留空不更换':'填写只读密钥'}"/>
+ `<label class="field-label">Cloudflare Worker HTTPS 地址</label><input class="input" id="syncUrl" type="url" spellcheck="false" autocomplete="off" value="${esc(syncConfig.url)}" placeholder="https://sync.qingheng.site"/><label class="field-label top-gap">${web?'手机只读密钥':'手机只读密钥（Keystore）'}（QH_READ_TOKEN）</label><input class="input" id="syncReadToken" type="password" autocomplete="off" spellcheck="false" maxlength="4096" placeholder="${hasToken?'当前已填写，留空不更换':'填写只读密钥'}"/>
  ${web?`<label class="field-label">手机写入密钥（QH_WRITE_TOKEN）</label><input class="input" id="syncWriteToken" type="password" spellcheck="false" autocomplete="off" maxlength="4096" placeholder="${syncWriteTokenAvailable?'当前已填写，留空不更换':'填写写入密钥以启用双向同步'}"/><div class="info-box top-gap">两种凭据仅存于当前浏览器标签页会话，不写入公开网页代码、本地永久存储或 JSON 备份。关闭标签或清除网站数据后需重填。网页安全性弱于 Android Keystore，请只在你控制的设备和 HTTPS 页面操作。</div>`:`<div class="info-box top-gap">安卓原生密钥继续使用系统 Keystore。本升级包主要提供 iPhone Safari 网页双向同步。</div>`}
  <div class="warning-box info-box top-gap">不要把任何密钥发到 ChatGPT 对话里。请先在旧版导出数据备份。历史记录不会自动整批上传。</div>
  <div class="sheet-buttons"><button class="secondary-btn" data-close>取消</button><button class="primary-btn" id="saveSyncConfig">保存并测试</button></div>${syncConfig.url||hasToken?'<button class="danger-btn" id="clearSyncConfig" style="width:100%;margin-top:10px">停用自动同步</button>':''}`);
@@ -976,10 +979,10 @@ async function openSyncConfig(){
   statusButton.disabled=true;
   try{
    const url=sheet.querySelector('#syncUrl').value.trim().replace(/\/+$/,''),typed=sheet.querySelector('#syncReadToken').value.trim();
-   if(!validSyncUrl(url))throw Error('请输入合法的 Cloudflare HTTPS 地址');
+   if(!validSyncUrl(url))throw Error('请输入 https://sync.qingheng.site 或合法的 Cloudflare HTTPS 地址');
    if(typed){if(secure)await secure.setSyncReadToken({value:typed});else storePhoneSession(PHONE_READ_SESSION,typed);}
    else if(!hasToken)throw Error('请填写只读密钥');
-   if(web){const write=sheet.querySelector('#syncWriteToken').value.trim();if(write)storePhoneSession(PHONE_WRITE_SESSION,write);}
+   if(web){const write=sheet.querySelector('#syncWriteToken').value.trim();if(write&&write===await readSyncReadToken())throw Error('读取和写入必须填写不同的密钥');if(write){storePhoneSession(PHONE_WRITE_SESSION,write);localStorage.setItem(PHONE_WRITE_ENABLED,'1');}}
    syncConfig={url};localStorage.setItem(SYNC_URL_STORE,url);syncReadTokenAvailable=true;
    syncWriteTokenAvailable=web&&Boolean(readPhoneSession(PHONE_WRITE_SESSION));
    closeSheet();syncStatus='正在验证云端读取';render();await pullSync(true);
@@ -988,7 +991,7 @@ async function openSyncConfig(){
  sheet.querySelector('#clearSyncConfig')?.addEventListener('click',async()=>{
   if(!confirm('停用自动同步？本机已有记录和未发送队列都会保留。'))return;
   try{if(secure)await secure.deleteSyncReadToken();else {storePhoneSession(PHONE_READ_SESSION,'');storePhoneSession(PHONE_WRITE_SESSION,'');}
-   localStorage.removeItem(SYNC_URL_STORE);syncConfig={url:''};syncReadTokenAvailable=false;syncWriteTokenAvailable=false;syncStatus='自动同步已停用，本机记录和待上传队列保留';closeSheet();render();showToast('自动同步已停用');}
+   localStorage.removeItem(PHONE_WRITE_ENABLED);localStorage.removeItem(SYNC_URL_STORE);syncConfig={url:''};syncReadTokenAvailable=false;syncWriteTokenAvailable=false;syncStatus='自动同步已停用，本机记录和待上传队列保留';closeSheet();render();showToast('自动同步已停用');}
   catch(error){showToast(safeMessage(error,'无法停用自动同步'));}
  });
 }
