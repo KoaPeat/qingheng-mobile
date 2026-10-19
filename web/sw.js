@@ -1,0 +1,7 @@
+const CACHE='qingheng-public-shell-2.1.1-open.1';
+const ASSETS=['./index.html','./manifest.webmanifest','./icon.png','./privacy.html','./ai-client.mjs','./chain-foods.mjs','./health-core.mjs','./sync-bridge.mjs'];
+self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
+self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key.startsWith('qingheng-public-shell-')&&key!==CACHE).map(key=>caches.delete(key)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',event=>{const request=event.request,url=new URL(request.url);if(request.method!=='GET'||url.origin!==location.origin||request.headers.has('authorization')||request.headers.has('cookie')||(url.search&&url.search!=='?demo=1'))return;const base=new URL('./',self.location.href),relative='./'+url.pathname.slice(base.pathname.length),home=relative==='./'||relative==='./index.html';if(!url.pathname.startsWith(base.pathname)||(!ASSETS.includes(relative)&&!home))return;
+if(request.mode==='navigate'&&home){event.respondWith(fetch(request).then(response=>{if(response.ok)caches.open(CACHE).then(cache=>cache.put('./index.html',response.clone()));return response;}).catch(()=>caches.match('./index.html')));return;}
+event.respondWith(caches.match(request).then(cached=>cached||fetch(request)));});
