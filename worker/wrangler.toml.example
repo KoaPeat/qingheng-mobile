@@ -1,0 +1,14 @@
+# Copy to wrangler.toml, then create and use your own KV namespace.
+# Never insert tokens, account IDs or private data into the committed example.
+name = "qingheng-sync"
+main = "index.mjs"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[vars]
+# Exact origins, comma-separated; replace the reserved demo example with your site.
+ALLOWED_ORIGINS = "http://localhost:8000,http://127.0.0.1:8000,https://demo.example.com"
+
+[[kv_namespaces]]
+binding = "QH_EVENTS"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"

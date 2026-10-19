@@ -1,0 +1,4 @@
+# Local development only. Copy to .dev.vars and generate two different random tokens.
+# Keep the resulting file private. Production tokens belong in Worker secrets.
+QH_READ_TOKEN="REPLACE_WITH_A_RANDOM_READ_TOKEN"
+QH_WRITE_TOKEN="REPLACE_WITH_A_DIFFERENT_RANDOM_WRITE_TOKEN"
