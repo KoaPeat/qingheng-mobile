@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 安全与隐私问题
+    url: https://github.com/KoaPeat/qingheng-mobile/blob/main/SECURITY.md
+    about: 查看私下报告方法；不要公开漏洞细节、个人记录或凭据。

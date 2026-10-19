@@ -1,0 +1,23 @@
+name: 功能建议
+description: 描述你想解决的具体问题
+title: "[Feature] "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 使用场景与遇到的问题
+      description: 你在什么时候希望使用这个功能？目前怎么处理？请用虚构记录举例。
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 希望的行为
+      description: 描述理想的操作流程，以及你考虑过的替代方案。
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: 其他说明（可选）
+      description: 例如离线使用、可访问性、手机操作或自部署方面的要求。请勿附个人健康记录或凭据。

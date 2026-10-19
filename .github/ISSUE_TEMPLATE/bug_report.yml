@@ -1,0 +1,49 @@
+name: 故障反馈
+description: 帮助我们复现并修复使用问题
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        请勿提交真实饮食/体重历史、API Key、同步令牌、完整备份或含凭据的日志。
+        安全漏洞请参考 SECURITY.md 私下报告。
+  - type: input
+    id: version
+    attributes:
+      label: 使用版本或提交
+      description: 可以填写 Release 标签、提交编号，或说明从哪里打开的页面。
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: 设备与浏览器
+      placeholder: "例如 iPhone / iOS 版本 / Safari，或 Windows / Chrome 版本"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      description: 使用虚构数据说明从哪个页面开始、点击了什么。
+      placeholder: "1. 打开…\n2. 点击…\n3. 看到…"
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期与实际结果
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 脱敏截图或错误信息（可选）
+      description: 遮盖个人记录、令牌、请求头与服务账户信息；不要粘贴完整 JSON 备份。
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: 提交前检查
+      options:
+        - label: 我已检查内容，不含个人健康记录、密钥、令牌或原始备份。
+          required: true
