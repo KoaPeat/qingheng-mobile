@@ -1,0 +1,14 @@
+{
+  "name": "qingheng-mobile",
+  "version": "2.1.1-open.1",
+  "private": true,
+  "description": "Local-first food and weight tracking for mobile browsers",
+  "license": "MIT",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "package": "node scripts/package.mjs"
+  }
+}
